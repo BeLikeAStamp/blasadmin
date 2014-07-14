@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">BLAS Admin</string>
+	<string name="project">Projets</string>
+	<string name="workshop">Ateliers</string>
+	<string name="tuto">Tutoriels</string>
+</resources>
