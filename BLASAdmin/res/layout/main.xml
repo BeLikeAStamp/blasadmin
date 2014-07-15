@@ -8,18 +8,21 @@
         android:id="@+id/tutos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="startTutorialAdminActivity"
         android:text="@string/tuto" />
 
      <Button
         android:id="@+id/workshop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="startWorkshopAdminActivity"
         android:text="@string/workshop" />
      
       <Button
         android:id="@+id/projects"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="startProjectAdminActivity"
         android:text="@string/project" />
     
     

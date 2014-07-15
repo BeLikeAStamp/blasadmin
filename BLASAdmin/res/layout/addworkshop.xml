@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/theme"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/theme" />
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/address" />
+
+    <EditText
+        android:id="@+id/town"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/town" />
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/date"
+        android:inputType="datetime" />
+    
+     <EditText
+        android:id="@+id/hostname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hostname" />
+
+    <EditText
+        android:id="@+id/capacity"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/capacity"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/registered"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/registered" />
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add" />
+
+</LinearLayout>

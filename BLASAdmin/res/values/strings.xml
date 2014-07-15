@@ -4,4 +4,16 @@
 	<string name="project">Projets</string>
 	<string name="workshop">Ateliers</string>
 	<string name="tuto">Tutoriels</string>
+	<string name="show">Voir</string>
+	<string name="edit">Edit</string>
+	<string name="add">Ajouter</string>
+	<!-- ajout dun atelier -->
+	<string name="theme">Thème</string>
+	<string name="hostname">Hôte</string>
+	<string name="address">Adresse</string>
+	<string name="town">Ville</string>
+	<string name="date">Date</string>
+	<string name="capacity">Capacité</string>
+	<string name="registered">Inscrits</string>
+	
 </resources>
