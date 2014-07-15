@@ -10,5 +10,5 @@ public interface WorkshopControllerInterface {
 	 void create(Workshop ws);
 
 	 @Get
-	 WorkshopContainer getAllWorkshops();
+	 Container getAllWorkshops();
 }

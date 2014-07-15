@@ -26,10 +26,10 @@ public class WorkshopController {
 		}
 	}
 
-	public List<Workshop> getAllWorkshops() {
+	public List getAllWorkshops() {
 		final WorkshopControllerInterface c = cr.wrap(WorkshopControllerInterface.class);
-		WorkshopContainer content = c.getAllWorkshops();
-		return content.getList();
+		Container content = c.getAllWorkshops();
+		return content.getWkList();
 	}
 
 }

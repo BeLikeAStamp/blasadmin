@@ -7,23 +7,24 @@ import com.belikeastamp.admin.model.Workshop;
 
 
 public class WorkshopContainer {
-	public List<Workshop> list;
-
-	public List<Workshop> getList() {
-		return list;
+	
+	public List<Workshop> wkList;
+	
+	
+	public WorkshopContainer() {
+		this.wkList = new ArrayList<Workshop>();
+	}
+	
+	public WorkshopContainer(List<Workshop> wkList) {
+		this.wkList = wkList;
 	}
 
-	public void setList(List<Workshop> list) {
-		this.list = list;
+	public List<Workshop> getWkList() {
+		return this.wkList;
+	}
+	
+	public void setWkList(List<Workshop> list) {
+		this.wkList = list;
 	}
 
-	public WorkshopContainer()
-	{
-		list = new ArrayList<Workshop>();
-	}
-
-	public WorkshopContainer(List<Workshop> list)
-	{
-		this.list = list;
-	}
 }

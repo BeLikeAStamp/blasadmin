@@ -24,7 +24,7 @@ public class GetAllWorkshopActivity extends Activity {
 
 		Request request = new Request();
 		request.execute();
-		
+
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, listsName);
 		list.setAdapter(adapter);
@@ -35,7 +35,7 @@ public class GetAllWorkshopActivity extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			WorkshopController c = new WorkshopController();
-			List<Workshop> lists = new ArrayList<Workshop>();
+			List lists = new ArrayList<Workshop>();
 
 			try {
 				lists = c.getAllWorkshops();
@@ -44,14 +44,16 @@ public class GetAllWorkshopActivity extends Activity {
 			}
 
 			if (lists != null) {
-				for (Workshop ws : lists) {
-					if (ws != null)
+				for (Object o : lists) {
+					if (o != null && o instanceof Workshop) {
+						Workshop ws = (Workshop) o;
 						listsName.add(ws.getTheme() + " " + ws.getTown());
+					}
 				}
 			}
 			return null;
 		}
-		
+
 	}
-	
+
 }
