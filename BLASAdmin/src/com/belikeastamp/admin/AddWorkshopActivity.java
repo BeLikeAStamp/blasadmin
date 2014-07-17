@@ -49,6 +49,7 @@ public class AddWorkshopActivity extends Activity {
 
 				final WorkshopController c = new WorkshopController();
 				try {
+					
 					c.create(ws);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -108,7 +108,13 @@ public class Workshop implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Workshop [id=" + id + ", theme=" + theme + ", address="
+				+ address + ", hostname=" + hostname + ", town=" + town
+				+ ", date=" + date + ", capacity=" + capacity + ", registered="
+				+ registered + "]";
+	}
+
 }

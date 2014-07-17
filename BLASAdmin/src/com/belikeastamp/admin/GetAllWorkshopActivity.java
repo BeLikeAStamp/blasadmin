@@ -2,6 +2,7 @@ package com.belikeastamp.admin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import com.belikeastamp.admin.model.Workshop;
 import com.belikeastamp.admin.util.WorkshopController;
@@ -13,28 +14,36 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class GetAllWorkshopActivity extends Activity {
-	private ListView list;
-	private List<String> listsName = new ArrayList<String>();
+	private ListView listview;
+	private List<Workshop> listsName;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewworkshop);
 
-		list = (ListView) findViewById(R.id.workshoplist);
+		listview = (ListView) findViewById(R.id.workshoplist);
 
 		Request request = new Request();
-		request.execute();
+		try {
+			listsName = (List<Workshop>) request.execute().get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		ArrayAdapter<Workshop> adapter = new ArrayAdapter<Workshop>(this,
 				android.R.layout.simple_list_item_1, listsName);
-		list.setAdapter(adapter);
+		listview.setAdapter(adapter);
 	}
 
-	private class Request extends AsyncTask<Void, Void, Void> {
+	private class Request extends AsyncTask<Void, Void, List<Workshop>> {
 
+		@SuppressWarnings("unchecked")
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected List<Workshop> doInBackground(Void... params) {
 			WorkshopController c = new WorkshopController();
+			@SuppressWarnings("rawtypes")
 			List lists = new ArrayList<Workshop>();
 
 			try {
@@ -43,15 +52,7 @@ public class GetAllWorkshopActivity extends Activity {
 				e.printStackTrace();
 			}
 
-			if (lists != null) {
-				for (Object o : lists) {
-					if (o != null && o instanceof Workshop) {
-						Workshop ws = (Workshop) o;
-						listsName.add(ws.getTheme() + " " + ws.getTown());
-					}
-				}
-			}
-			return null;
+			return lists;
 		}
 
 	}
