@@ -4,14 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import com.belikeastamp.admin.model.Workshop;
-import com.belikeastamp.admin.util.WorkshopController;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.belikeastamp.admin.model.Workshop;
+import com.belikeastamp.admin.util.WorkshopAdapter;
+import com.belikeastamp.admin.util.WorkshopController;
 
 public class GetAllWorkshopActivity extends Activity {
 	private ListView listview;
@@ -32,9 +39,24 @@ public class GetAllWorkshopActivity extends Activity {
 			e.printStackTrace();
 		}
 
-		ArrayAdapter<Workshop> adapter = new ArrayAdapter<Workshop>(this,
-				android.R.layout.simple_list_item_1, listsName);
+		
+		ArrayAdapter<Workshop> adapter = new WorkshopAdapter(getApplicationContext(), listsName);
 		listview.setAdapter(adapter);
+		
+		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            	RelativeLayout layout = (RelativeLayout)view;
+            	TextView data = (TextView) layout.getChildAt(1);
+                Log.i("Get all WK", "ID=" + data.getTag());
+                
+                // Ouverture nouvelle activité avec les details du workshop = layout addws
+                // data non modifiable sauf si press bouton Edit + apparition bouton enregistrer OU 
+                // bouton delete => creation entree @DELETE et @POST correspondante dans restlet (serveur)
+                // second temps possibilite recherche de ws en fonction critere
+ 
+            }
+        });
 	}
 
 	private class Request extends AsyncTask<Void, Void, List<Workshop>> {
