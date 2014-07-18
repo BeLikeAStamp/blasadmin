@@ -53,12 +53,34 @@ public class WorkshopController {
 
 	public void create(Workshop ws) throws Exception {
 		try {
-			buildPutURL(ws);
+			buildPostURL(ws);
 			Log.i("WorkshopController", "Creation success !");
 		} catch (Exception e) {
 			Log.i("WorkshopController", "Creation failed !");
 			throw e;
 		}
+	}
+	
+
+	public void update(Workshop ws) throws Exception {
+		try {
+			buildPutURL(ws);
+			Log.i("WorkshopController", "Update success !");
+		} catch (Exception e) {
+			Log.i("WorkshopController", "Update failed !");
+			throw e;
+		}
+	}
+	 
+	public void delete(Long id)  throws Exception {
+		try {
+			buildDeleteURL(id);
+			Log.i("WorkshopController", "Delete success !");
+		} catch (Exception e) {
+			Log.i("WorkshopController", "Delete failed !");
+			throw e;
+		}
+		
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -133,14 +155,14 @@ public class WorkshopController {
 		return workshops;
 	}
 
-	private void buildPutURL(Workshop ws) {
+	private void buildPostURL(Workshop ws) {
 
 		try {
 			URL url = new URL(EngineConfiguration.path + "rest/workshop"); 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(10000);
 			conn.setConnectTimeout(15000);
-			conn.setRequestMethod("PUT");
+			conn.setRequestMethod("POST");
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
 
@@ -177,6 +199,89 @@ public class WorkshopController {
 
 	}
 
+	private void buildPutURL(Workshop ws) {
+
+		try {
+			URL url = new URL(EngineConfiguration.path + "rest/workshop"); 
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setReadTimeout(10000);
+			conn.setConnectTimeout(15000);
+			conn.setRequestMethod("PUT");
+			conn.setDoInput(true);
+			conn.setDoOutput(true);
+
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("id", ""+ws.getId()));
+			params.add(new BasicNameValuePair("theme", ws.getTheme()));
+			params.add(new BasicNameValuePair("address", ws.getAddress()));
+			params.add(new BasicNameValuePair("town", ws.getTown()));
+			params.add(new BasicNameValuePair("date", ws.getDate()));
+			params.add(new BasicNameValuePair("hostname", ws.getHostname()));
+			params.add(new BasicNameValuePair("capacity", ""+ws.getCapacity()));
+			params.add(new BasicNameValuePair("registered", ""+ws.getRegistered()));
+
+			OutputStream os = conn.getOutputStream();
+			BufferedWriter writer = new BufferedWriter(
+					new OutputStreamWriter(os, "UTF-8"));
+			writer.write(getQuery(params));
+			writer.flush();
+			writer.close();
+
+			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				Log.i("HttpURL","OK");
+			} else {
+				// Server returned HTTP error code.
+				Log.i("HttpURL","ERROR");
+			}
+
+			os.close();
+
+			conn.connect();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	private void buildDeleteURL(Long id) {
+
+		try {
+			URL url = new URL(EngineConfiguration.path + "rest/workshop?id="+id); 
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setReadTimeout(10000);
+			conn.setConnectTimeout(15000);
+			conn.setRequestMethod("DELETE");
+			conn.setDoInput(true);
+			//conn.setDoOutput(true);
+
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("id", ""+id));
+
+			/*OutputStream os = conn.getOutputStream();
+			BufferedWriter writer = new BufferedWriter(
+					new OutputStreamWriter(os, "UTF-8"));
+			writer.write(getQuery(params));
+			writer.flush();
+			writer.close();*/
+
+			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				Log.i("HttpURL","OK");
+			} else {
+				// Server returned HTTP error code.
+				Log.i("HttpURL","ERROR");
+			}
+
+			//os.close();
+
+			conn.connect();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
 	private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
 	{
 		StringBuilder result = new StringBuilder();

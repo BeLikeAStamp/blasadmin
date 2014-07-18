@@ -1,19 +1,27 @@
 <resources>
 
     <string name="app_name">BLAS Admin</string>
-	<string name="project">Projets</string>
-	<string name="workshop">Ateliers</string>
-	<string name="tuto">Tutoriels</string>
-	<string name="show">Voir</string>
-	<string name="edit">Edit</string>
-	<string name="add">Ajouter</string>
-	<!-- ajout dun atelier -->
-	<string name="theme">Thème</string>
-	<string name="hostname">Hôte</string>
-	<string name="address">Adresse</string>
-	<string name="town">Ville</string>
-	<string name="date">Date</string>
-	<string name="capacity">Capacité</string>
-	<string name="registered">Inscrits</string>
-	
+    <string name="project">Projets</string>
+    <string name="workshop">Ateliers</string>
+    <string name="tuto">Tutoriels</string>
+    <string name="registration">Inscriptions</string>
+    <string name="users">Utilisateurs</string>
+    <!-- admin -->
+    <string name="show">Voir</string>
+    <string name="add">Ajouter</string>
+    <!-- ajout dun atelier -->
+    <string name="theme">Thème</string>
+    <string name="hostname">Hôte</string>
+    <string name="address">Adresse</string>
+    <string name="town">Ville</string>
+    <string name="date">Date</string>
+    <string name="capacity">Capacité</string>
+    <string name="registered">Inscrits</string>
+    <!-- edition dun atelier -->
+    <string name="edit">Edit</string>
+    <string name="save">Enregistrer</string>
+    <string name="del">Supprimer</string>
+    <string name="cancel">Annuler</string>
+    <string name="back">Retour à la liste</string>
+
 </resources>

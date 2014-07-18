@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +50,10 @@ public class GetAllWorkshopActivity extends Activity {
             	RelativeLayout layout = (RelativeLayout)view;
             	TextView data = (TextView) layout.getChildAt(1);
                 Log.i("Get all WK", "ID=" + data.getTag());
-                
+                Workshop w = (Workshop)data.getTag();
+                Intent i = new Intent(GetAllWorkshopActivity.this, EditWorkshopActivity.class);
+                i.putExtra("workshop", w);
+                startActivity(i);
                 // Ouverture nouvelle activité avec les details du workshop = layout addws
                 // data non modifiable sauf si press bouton Edit + apparition bouton enregistrer OU 
                 // bouton delete => creation entree @DELETE et @POST correspondante dans restlet (serveur)
