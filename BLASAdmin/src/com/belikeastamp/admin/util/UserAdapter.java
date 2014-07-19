@@ -50,6 +50,11 @@ public class UserAdapter extends ArrayAdapter<User> {
 		holder.data.setText(values.get(position).getFirstname() +" "+values.get(position).getName()+" ("+values.get(position).getEmail()+")");
 		holder.data.setTag(values.get(position));
 
+		if(values.get(position).getIsHost()) 
+			holder.host.setImageResource(R.drawable.host);
+		if(values.get(position).getIsPartener()) 
+			holder.partener.setImageResource(R.drawable.partener);
+		
 		// change the icon for Windows and iPhone
 		/*int ratio = 0;
 		if(values.get(position).getRegistered() > 0 ) 
