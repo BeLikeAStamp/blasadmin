@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.belikeastamp.admin.model.Workshop;
 import com.belikeastamp.admin.util.WorkshopAdapter;
@@ -27,9 +26,9 @@ public class GetAllWorkshopActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.viewworkshop);
+		setContentView(R.layout.itemlist);
 
-		listview = (ListView) findViewById(R.id.workshoplist);
+		listview = (ListView) findViewById(R.id.itemlist);
 
 		Request request = new Request();
 		try {

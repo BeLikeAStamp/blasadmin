@@ -31,4 +31,17 @@ public class MainActivity extends Activity {
 				ProjectAdminActivity.class);
 		startActivity(intent);
 	}
+	
+	public void startUserAdminActivity(View v) {
+		Intent intent = new Intent(MainActivity.this,
+				UserAdminActivity.class);
+		startActivity(intent);
+	}
+	
+	public void startRegistrationAdminActivity(View v) {
+		Intent intent = new Intent(MainActivity.this,
+				RegistrationAdminActivity.class);
+		startActivity(intent);
+	}
+		
 }

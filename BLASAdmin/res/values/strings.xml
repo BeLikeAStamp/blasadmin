@@ -23,5 +23,12 @@
     <string name="del">Supprimer</string>
     <string name="cancel">Annuler</string>
     <string name="back">Retour à la liste</string>
+    <!-- ajout dun atelier -->
+    <string name="firstname">Prénom</string>
+    <string name="name">Nom</string>
+    <string name="phone">N° de tél</string>
+    <string name="email">Email</string>
+    <string name="partener">Filleule</string>
+    <string name="host">Hôtesse</string>
 
 </resources>

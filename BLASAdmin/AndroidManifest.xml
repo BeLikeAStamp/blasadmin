@@ -31,7 +31,9 @@
 		<activity android:name=".AddWorkshopActivity" />
 		<activity android:name=".GetAllWorkshopActivity" />
 		<activity android:name=".EditWorkshopActivity" />
-		
+        <activity android:name=".UserAdminActivity" />		
+		<activity android:name=".AddUserActivity" />
+		<activity android:name=".GetAllUserActivity" />
     </application>
 
 </manifest>

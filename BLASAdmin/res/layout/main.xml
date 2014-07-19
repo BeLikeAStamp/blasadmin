@@ -29,14 +29,14 @@
         android:id="@+id/registration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="startProjectAdminActivity"
+        android:onClick="startRegistrationAdminActivity"
         android:text="@string/registration" />
      
       <Button
         android:id="@+id/users"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="startProjectAdminActivity"
+        android:onClick="startUserAdminActivity"
         android:text="@string/users" />
      
 </LinearLayout>
