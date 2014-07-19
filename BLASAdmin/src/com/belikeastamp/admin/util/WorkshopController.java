@@ -120,8 +120,6 @@ public class WorkshopController {
 					String hostname = c.getString(TAG_HOSTNAME);
 					String address = c.getString(TAG_ADDRESS);
 					String town = c.getString(TAG_TOWN);
-
-					// Phone node is JSON Object
 					String date = c.getString(TAG_DATE);
 					String capacity = c.getString(TAG_CAPACITY);
 					String registered = c.getString(TAG_REGISTERED);

@@ -49,7 +49,6 @@ public class WorkshopAdapter extends ArrayAdapter<Workshop> {
 		//holder.data.setText(values.get(position).toString());
 		holder.data.setTag(values.get(position));
 
-		// change the icon for Windows and iPhone
 		int ratio = 0;
 		if(values.get(position).getRegistered() > 0 ) 
 			ratio = values.get(position).getCapacity()/values.get(position).getRegistered();

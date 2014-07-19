@@ -33,15 +33,15 @@ import com.belikeastamp.admin.model.Workshop;
 
 public class UserController {
 	// JSON Node names
-	private static final String TAG_WS = "workshops";
+	private static final String TAG_WS = "users";
 	private static final String TAG_ID = "id";
-	private static final String TAG_THEME = "theme";
-	private static final String TAG_HOSTNAME = "hostname";
+	private static final String TAG_FIRSTNAME = "firstname";
+	private static final String TAG_NAME = "name";
 	private static final String TAG_ADDRESS = "address";
-	private static final String TAG_TOWN = "town";
-	private static final String TAG_DATE = "date";
-	private static final String TAG_CAPACITY = "capacity";
-	private static final String TAG_REGISTERED = "registered";
+	private static final String TAG_EMAIL = "email";
+	private static final String TAG_PHONE = "phone";
+	private static final String TAG_PARTENER = "isPartener";
+	private static final String TAG_HOST = "isHost";
 
 
 	public final ClientResource cr = new ClientResource(EngineConfiguration.path + "rest/user");
@@ -55,9 +55,9 @@ public class UserController {
 	public void create(User u) throws Exception {
 		try {
 			buildPostURL(u);
-			Log.i("WorkshopController", "Creation success !");
+			Log.i("UserController", "Creation success !");
 		} catch (Exception e) {
-			Log.i("WorkshopController", "Creation failed !");
+			Log.i("UserController", "Creation failed !");
 			throw e;
 		}
 	}
@@ -66,9 +66,9 @@ public class UserController {
 	public void update(User u) throws Exception {
 		try {
 			buildPutURL(u);
-			Log.i("WorkshopController", "Update success !");
+			Log.i("UserController", "Update success !");
 		} catch (Exception e) {
-			Log.i("WorkshopController", "Update failed !");
+			Log.i("UserController", "Update failed !");
 			throw e;
 		}
 	}
@@ -76,9 +76,9 @@ public class UserController {
 	public void delete(Long id)  throws Exception {
 		try {
 			buildDeleteURL(id);
-			Log.i("WorkshopController", "Delete success !");
+			Log.i("UserController", "Delete success !");
 		} catch (Exception e) {
-			Log.i("WorkshopController", "Delete failed !");
+			Log.i("UserController", "Delete failed !");
 			throw e;
 		}
 		
@@ -87,11 +87,11 @@ public class UserController {
 	@SuppressWarnings("rawtypes")
 	public List getAllUsers() {
 		InputStream inputStream = getInputStreamFromUrl(EngineConfiguration.path + "rest/user");
-		List<Workshop> list = null;
+		List<User> list = null;
 		try { 
 			String jsonStr = convertInputStreamToString(inputStream);
 			Log.d("Response: ", "> " + jsonStr);
-			list = JSON2Workshop(jsonStr);
+			list = JSON2User(jsonStr);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,14 +99,13 @@ public class UserController {
 		return list;
 	}
 
-	private List<Workshop> JSON2Workshop(String json) {
+	private List<User> JSON2User(String json) {
 		// TODO Auto-generated method stub
-		List<Workshop> workshops = new ArrayList<Workshop>();
+		List<User> users = new ArrayList<User>();
 
 		if (json != null) {
 			try {
 				json = "{\""+TAG_WS+"\": "+json+"}";
-				//JSONObject jsonObj = new JSONObject(json.substring(json.indexOf("{"), json.lastIndexOf("}") + 1));
 				JSONObject jsonObj = new JSONObject(json);
 				JSONArray ws = null;
 				// Getting JSON Array node
@@ -117,33 +116,34 @@ public class UserController {
 					JSONObject c = ws.getJSONObject(i);
 
 					String id = c.getString(TAG_ID);
-					String theme = c.getString(TAG_THEME);
-					String hostname = c.getString(TAG_HOSTNAME);
+					String firstname = c.getString(TAG_FIRSTNAME);
+					String name = c.getString(TAG_NAME);
 					String address = c.getString(TAG_ADDRESS);
-					String town = c.getString(TAG_TOWN);
-
-					// Phone node is JSON Object
-					String date = c.getString(TAG_DATE);
-					String capacity = c.getString(TAG_CAPACITY);
-					String registered = c.getString(TAG_REGISTERED);
+					String email = c.getString(TAG_EMAIL);
+					String phone = c.getString(TAG_PHONE);
+					String isPartener = c.getString(TAG_PARTENER);
+					String isHost = c.getString(TAG_HOST);
 
 					// tmp hashmap for single contact
 					HashMap<String, String> hash = new HashMap<String, String>();
 
 					// adding each child node to HashMap key => value
 					hash.put(TAG_ID, id);
-					hash.put(TAG_THEME, theme);
-					hash.put(TAG_HOSTNAME, hostname);
+					hash.put(TAG_FIRSTNAME, firstname);
+					hash.put(TAG_NAME, name);
 					hash.put(TAG_ADDRESS, address);
-					hash.put(TAG_TOWN, town);
-					hash.put(TAG_DATE, date);
-					hash.put(TAG_REGISTERED, registered);
-					hash.put(TAG_CAPACITY, capacity);
+					hash.put(TAG_EMAIL, email);
+					hash.put(TAG_PHONE, phone);
+					hash.put(TAG_PARTENER, isPartener);
+					hash.put(TAG_HOST, isHost);
 
-					// adding workshop to contact workshops list
-					Workshop w = new Workshop(theme, address, hostname, town, date, Integer.valueOf(capacity), Integer.valueOf(registered));
-					w.setId(Long.valueOf(id));
-					workshops.add(w);
+					// adding uset to contact users list
+					User u = new User(firstname, name, phone, email);
+					u.setAddress(address);
+					u.setIsHost(Boolean.valueOf(isHost));
+					u.setIsPartener(Boolean.valueOf(isPartener));
+					u.setId(Long.valueOf(id));
+					users.add(u);
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -153,7 +153,7 @@ public class UserController {
 		}
 
 
-		return workshops;
+		return users;
 	}
 
 	private void buildPostURL(User u) {

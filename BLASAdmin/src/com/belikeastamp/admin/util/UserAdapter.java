@@ -47,7 +47,7 @@ public class UserAdapter extends ArrayAdapter<User> {
 
 		// fill data
 		ViewHolder holder = (ViewHolder) rowView.getTag();
-		holder.data.setText(values.get(position).getFirstname() +" in "+values.get(position).getName()+" ("+values.get(position).getEmail()+")");
+		holder.data.setText(values.get(position).getFirstname() +" "+values.get(position).getName()+" ("+values.get(position).getEmail()+")");
 		holder.data.setTag(values.get(position));
 
 		// change the icon for Windows and iPhone
