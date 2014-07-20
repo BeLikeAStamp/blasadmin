@@ -256,13 +256,6 @@ public class WorkshopController {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("id", ""+id));
 
-			/*OutputStream os = conn.getOutputStream();
-			BufferedWriter writer = new BufferedWriter(
-					new OutputStreamWriter(os, "UTF-8"));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();*/
-
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 				Log.i("HttpURL","OK");
 			} else {

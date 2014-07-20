@@ -29,7 +29,6 @@ import org.restlet.resource.ClientResource;
 import android.util.Log;
 
 import com.belikeastamp.admin.model.User;
-import com.belikeastamp.admin.model.Workshop;
 
 public class UserController {
 	// JSON Node names
@@ -97,6 +96,21 @@ public class UserController {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public Long getUserId(String email) {
+		InputStream inputStream = getInputStreamFromUrl(EngineConfiguration.path + "rest/user?email="+email);
+		List<User> list = new ArrayList<User>();
+		try { 
+			String jsonStr = convertInputStreamToString(inputStream);
+			Log.d("Response: ", "> " + jsonStr);
+			list = JSON2User(jsonStr);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		return (list.size() > 0) ? list.get(0).getId() : Long.valueOf(-1);
 	}
 
 	private List<User> JSON2User(String json) {
