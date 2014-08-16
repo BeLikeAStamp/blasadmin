@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/title" />
+
+    <Button
+        android:id="@+id/date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_date" />
+
+    <RadioGroup
+        android:id="@+id/availability"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/available"
+            android:text="@string/available"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/not_available"
+            android:text="@string/not_available" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/upload" />
+
+    <TextView
+        android:id="@+id/filename"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/waiting_file" />
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add" />
+
+</LinearLayout>

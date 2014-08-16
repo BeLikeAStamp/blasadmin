@@ -24,12 +24,20 @@
     <string name="del">Supprimer</string>
     <string name="cancel">Annuler</string>
     <string name="back">Retour à la liste</string>
-    <!-- ajout dun atelier -->
+    <!-- ajout dun user -->
     <string name="firstname">Prénom</string>
     <string name="name">Nom</string>
     <string name="phone">N° de tél</string>
     <string name="email">Email</string>
     <string name="partener">Filleule</string>
     <string name="host">Hôtesse</string>
+     <!-- ajout dun tuto -->
+    <string name="title">Titre</string>
+    <string name="upload_date">Date de mise en ligne</string>
+    <string name="availability">Disponobilité</string>
+    <string name="available">disponible</string>
+    <string name="not_available">à la demande</string>
+    <string name="waiting_file">Fichier en attente</string>
+    <string name="upload">Charger le fichier</string>
 
 </resources>

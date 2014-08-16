@@ -17,8 +17,8 @@ public class TutorialAdminActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//Intent i = new Intent(TutorialAdminActivity.this, AddTutorialActivity.class);
-				//startActivity(i);
+				Intent i = new Intent(TutorialAdminActivity.this, AddTutorialActivity.class);
+				startActivity(i);
 			}
 		});
 
