@@ -20,12 +20,13 @@ public class Workshop implements Serializable {
 	private String date;
 	private Integer capacity;
 	private Integer registered;
+	private Integer price;
 	
 	
 	public Workshop() {}
 
 	public Workshop(String theme, String address, String hostname, String town,
-			String date, Integer capacity, Integer registered) {
+			String date, Integer capacity, Integer registered,  Integer price) {
 		super();
 		this.theme = theme;
 		this.address = address;
@@ -34,6 +35,7 @@ public class Workshop implements Serializable {
 		this.date = date;
 		this.capacity = capacity;
 		this.registered = registered;
+		this.price = price;
 	}
 
 	public String getAddress() {
@@ -99,6 +101,14 @@ public class Workshop implements Serializable {
 
 	public void setRegistered(int registered) {
 		this.registered = registered;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 
 	public Long getId() {

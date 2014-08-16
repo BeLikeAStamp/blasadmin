@@ -48,6 +48,13 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:hint="@string/registered" />
+    
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/price" />
 
     <Button
         android:id="@+id/add"

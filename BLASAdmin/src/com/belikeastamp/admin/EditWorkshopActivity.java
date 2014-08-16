@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class EditWorkshopActivity extends Activity {
-	private EditText theme, address, hostname, town, date, cap,reg ;
+	private EditText theme, address, hostname, town, date, cap,reg, price ;
 	private Button edit, save, cancel, del, back;
 	final WorkshopController c = new WorkshopController();
 	private Workshop w;
@@ -34,7 +34,8 @@ public class EditWorkshopActivity extends Activity {
 		date = (EditText) findViewById(R.id.date);
 		cap = (EditText) findViewById(R.id.capacity);
 		reg = (EditText) findViewById(R.id.registered);
-
+		price = (EditText) findViewById(R.id.price);
+		
 		setWorshopData();
 
 		edit = (Button) findViewById(R.id.edit);
@@ -72,7 +73,8 @@ public class EditWorkshopActivity extends Activity {
 						&& town.getEditableText().length() > 0
 						&& date.getEditableText().length() > 0
 						&& cap.getEditableText().length() > 0
-						&& reg.getEditableText().length() > 0) {
+						&& reg.getEditableText().length() > 0
+						&& price.getEditableText().length() > 0) {
 					if(Integer.valueOf(cap.getText().toString()) < 1) 
 						Toast.makeText(getApplicationContext(), "Capacité inférieure à 1 ???...", Toast.LENGTH_SHORT).show();
 					else
@@ -126,6 +128,7 @@ public class EditWorkshopActivity extends Activity {
 				date.setEnabled(false);
 				cap.setEnabled(false);
 				reg.setEnabled(false);
+				price.setEnabled(false);
 				del.setEnabled(true);
 				cancel.setVisibility(View.INVISIBLE);
 				save.setVisibility(View.INVISIBLE);
@@ -186,6 +189,7 @@ public class EditWorkshopActivity extends Activity {
 		date.setText(w.getDate());
 		cap.setText(""+w.getCapacity());
 		reg.setText(""+w.getRegistered());
+		price.setText(""+w.getPrice());
 	}
 
 	private void updateWorkshop() {
@@ -199,6 +203,7 @@ public class EditWorkshopActivity extends Activity {
 					ws.setAddress(address.getText().toString());
 					ws.setCapacity(Integer.valueOf(cap.getText().toString()));
 					ws.setRegistered(Integer.valueOf(reg.getText().toString()));
+					ws.setPrice(Integer.valueOf(price.getText().toString()));
 					ws.setDate(date.getText().toString());
 					ws.setHostname(hostname.getText().toString());
 					ws.setTheme(theme.getText().toString());

@@ -17,6 +17,7 @@
     <string name="date">Date</string>
     <string name="capacity">Capacité</string>
     <string name="registered">Inscrits</string>
+    <string name="price">Prix</string>
     <!-- edition dun atelier -->
     <string name="edit">Edit</string>
     <string name="save">Enregistrer</string>

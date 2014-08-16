@@ -55,6 +55,14 @@
         android:enabled="false"
         android:hint="@string/registered"
         android:inputType="number" />
+    
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:hint="@string/price"
+        android:inputType="number" />
 
     <LinearLayout
         android:layout_width="match_parent"

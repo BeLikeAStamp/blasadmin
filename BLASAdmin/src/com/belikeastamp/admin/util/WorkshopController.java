@@ -41,7 +41,7 @@ public class WorkshopController {
 	private static final String TAG_DATE = "date";
 	private static final String TAG_CAPACITY = "capacity";
 	private static final String TAG_REGISTERED = "registered";
-
+	private static final String TAG_PRICE = "price";
 
 	public final ClientResource cr = new ClientResource(EngineConfiguration.path + "rest/workshop");
 
@@ -123,7 +123,8 @@ public class WorkshopController {
 					String date = c.getString(TAG_DATE);
 					String capacity = c.getString(TAG_CAPACITY);
 					String registered = c.getString(TAG_REGISTERED);
-
+					String price = c.getString(TAG_PRICE);	
+					
 					// tmp hashmap for single contact
 					HashMap<String, String> hash = new HashMap<String, String>();
 
@@ -138,7 +139,7 @@ public class WorkshopController {
 					hash.put(TAG_CAPACITY, capacity);
 
 					// adding workshop to contact workshops list
-					Workshop w = new Workshop(theme, address, hostname, town, date, Integer.valueOf(capacity), Integer.valueOf(registered));
+					Workshop w = new Workshop(theme, address, hostname, town, date, Integer.valueOf(capacity), Integer.valueOf(registered),  Integer.valueOf(price));
 					w.setId(Long.valueOf(id));
 					workshops.add(w);
 				}
@@ -172,7 +173,8 @@ public class WorkshopController {
 			params.add(new BasicNameValuePair("hostname", ws.getHostname()));
 			params.add(new BasicNameValuePair("capacity", ""+ws.getCapacity()));
 			params.add(new BasicNameValuePair("registered", ""+ws.getRegistered()));
-
+			params.add(new BasicNameValuePair("price", ""+ws.getPrice()));
+			
 			OutputStream os = conn.getOutputStream();
 			BufferedWriter writer = new BufferedWriter(
 					new OutputStreamWriter(os, "UTF-8"));
@@ -217,7 +219,8 @@ public class WorkshopController {
 			params.add(new BasicNameValuePair("hostname", ws.getHostname()));
 			params.add(new BasicNameValuePair("capacity", ""+ws.getCapacity()));
 			params.add(new BasicNameValuePair("registered", ""+ws.getRegistered()));
-
+			params.add(new BasicNameValuePair("price", ""+ws.getPrice()));
+			
 			OutputStream os = conn.getOutputStream();
 			BufferedWriter writer = new BufferedWriter(
 					new OutputStreamWriter(os, "UTF-8"));
