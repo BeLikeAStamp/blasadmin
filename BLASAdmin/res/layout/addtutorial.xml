@@ -24,8 +24,8 @@
 
         <RadioButton
             android:id="@+id/available"
-            android:text="@string/available"
-            android:checked="true" />
+            android:checked="true"
+            android:text="@string/available" />
 
         <RadioButton
             android:id="@+id/not_available"
@@ -43,6 +43,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/waiting_file" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/add"

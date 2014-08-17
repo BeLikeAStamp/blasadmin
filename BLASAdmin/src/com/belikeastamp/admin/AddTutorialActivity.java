@@ -1,27 +1,55 @@
 package com.belikeastamp.admin;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Calendar;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.restlet.engine.header.ContentType;
 
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.belikeastamp.admin.model.Tutorial;
-import com.belikeastamp.admin.model.Workshop;
 import com.belikeastamp.admin.util.DatePickerDialogFragment;
+import com.belikeastamp.admin.util.EngineConfiguration;
 import com.belikeastamp.admin.util.TutorialController;
-import com.belikeastamp.admin.util.WorkshopController;
 
 public class AddTutorialActivity extends Activity {
 	private static final int PICKFILE_RESULT_CODE = 1;
@@ -180,11 +208,97 @@ public class AddTutorialActivity extends Activity {
 			if(resultCode==RESULT_OK){
 				String FilePath = data.getData().getPath();
 				filename.setText(FilePath);
-				
-			}
-			break;
 
+				/*Bitmap bm = BitmapFactory.decodeStream(
+						getContentResolver().openInputStream(data.getData()));
+				Bitmap bm = BitmapFactory.decodeFile(data.getData().getPath());
+				image.setImageBitmap(bm); 
+				 */
+				new SendHttpRequestTask(getApplicationContext()).execute(new File(data.getData().getPath()));
+			}
+			break;		
 		}
+
 	}
 
+
+
+	public class SendHttpRequestTask extends AsyncTask<File, Void, String>{
+		private HttpClient client;
+		private HttpPost post;
+		private HttpResponse response;
+		private HttpEntity entity;
+		private ProgressDialog mProgressDialog;
+		private SharedPreferences sharedPreferences;
+		private MultipartEntityBuilder builder;
+
+		int serverResponseCode=0;
+		//for uploading..// 
+		String end = "\r\n";
+		String twoHyphens = "--";
+		String boundary = "******";
+
+		private Context con;
+		StringBuffer buffer=new StringBuffer();
+
+		public SendHttpRequestTask(Context con){
+			this.con=con;
+		} 
+		@Override 
+		protected void onPreExecute() { 
+			/*mProgressDialog=new ProgressDialog(con);
+			mProgressDialog.setMessage("Loading");
+			mProgressDialog.show();
+			super.onPreExecute(); */
+		} 
+
+		protected String doInBackground(File... params) {
+
+			File file=params[0];
+			String path=file.getAbsolutePath();
+			//FileBody fileBody=new FileBody(file);
+
+
+			client=new DefaultHttpClient();
+
+			try { 
+				String filename=path.substring(path.lastIndexOf("/")+1);
+				String url = EngineConfiguration.path + "upload?tutorial=123456789";
+				HttpClient client = new DefaultHttpClient();
+		        HttpPost post = new HttpPost(url);
+		        MultipartEntityBuilder builder =MultipartEntityBuilder.create();        
+		        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+		        ContentBody cbFile = new FileBody(file);
+		        builder.addPart("file", cbFile);
+		        HttpEntity mpEntity = builder.build();
+		        post.setEntity(mpEntity);
+		        
+		        HttpResponse response = client.execute(post);
+		       
+		        HttpEntity resEntity = response.getEntity();
+		        String Response=EntityUtils.toString(resEntity);
+
+
+				Log.i("uploadFile", "HTTP Response is : "
+						+ Response);
+
+			} catch (UnsupportedEncodingException e) {
+
+				e.printStackTrace();
+			} 
+			catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
+			//mProgressDialog.dismiss();
+
+			return null; 
+		} 
+
+	} 
+
+
+
 }
+
