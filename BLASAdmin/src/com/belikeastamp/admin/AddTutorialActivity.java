@@ -1,13 +1,8 @@
 package com.belikeastamp.admin;
 
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.Calendar;
 
 import org.apache.http.HttpEntity;
@@ -16,15 +11,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.restlet.engine.header.ContentType;
-
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
@@ -40,7 +31,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -58,6 +48,7 @@ public class AddTutorialActivity extends Activity {
 	private Button date, upload;
 	private RadioGroup availability;
 	private TextView filename;
+	private Long tutorialId = Long.valueOf(123456789);
 	private boolean getFile = false;
 	int selectedId;
 
@@ -102,7 +93,7 @@ public class AddTutorialActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.setType("application/pdf"); 
+				intent.setType("image/jpeg"); 
 				startActivityForResult(intent, PICKFILE_RESULT_CODE);
 			}
 		});
@@ -224,13 +215,7 @@ public class AddTutorialActivity extends Activity {
 
 
 	public class SendHttpRequestTask extends AsyncTask<File, Void, String>{
-		private HttpClient client;
-		private HttpPost post;
-		private HttpResponse response;
-		private HttpEntity entity;
 		private ProgressDialog mProgressDialog;
-		private SharedPreferences sharedPreferences;
-		private MultipartEntityBuilder builder;
 
 		int serverResponseCode=0;
 		//for uploading..// 
@@ -244,32 +229,28 @@ public class AddTutorialActivity extends Activity {
 		public SendHttpRequestTask(Context con){
 			this.con=con;
 		} 
+		/*
 		@Override 
 		protected void onPreExecute() { 
-			/*mProgressDialog=new ProgressDialog(con);
+			mProgressDialog=new ProgressDialog(con);
 			mProgressDialog.setMessage("Loading");
 			mProgressDialog.show();
-			super.onPreExecute(); */
-		} 
+			super.onPreExecute();
+		} */
 
 		protected String doInBackground(File... params) {
 
 			File file=params[0];
-			String path=file.getAbsolutePath();
-			//FileBody fileBody=new FileBody(file);
-
-
-			client=new DefaultHttpClient();
 
 			try { 
-				String filename=path.substring(path.lastIndexOf("/")+1);
-				String url = EngineConfiguration.path + "upload?tutorial=123456789";
+				String url = EngineConfiguration.path + "upload?correspondance="+tutorialId;
 				HttpClient client = new DefaultHttpClient();
 		        HttpPost post = new HttpPost(url);
 		        MultipartEntityBuilder builder =MultipartEntityBuilder.create();        
 		        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 		        ContentBody cbFile = new FileBody(file);
 		        builder.addPart("file", cbFile);
+		        builder.addTextBody("name", "uploadedFile");
 		        HttpEntity mpEntity = builder.build();
 		        post.setEntity(mpEntity);
 		        
@@ -291,6 +272,7 @@ public class AddTutorialActivity extends Activity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 
+			
 			//mProgressDialog.dismiss();
 
 			return null; 
