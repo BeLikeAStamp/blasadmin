@@ -1,58 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/title" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/date"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/upload_date" />
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title" />
 
-    <RadioGroup
-        android:id="@+id/availability"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_date" />
 
-        <RadioButton
-            android:id="@+id/available"
-            android:checked="true"
-            android:text="@string/available" />
+        <RadioGroup
+            android:id="@+id/availability"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-        <RadioButton
-            android:id="@+id/not_available"
-            android:text="@string/not_available" />
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/available"
+                android:checked="true"
+                android:text="@string/available" />
 
-    <Button
-        android:id="@+id/upload"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/upload" />
+            <RadioButton
+                android:id="@+id/not_available"
+                android:text="@string/not_available" />
+        </RadioGroup>
 
-    <TextView
-        android:id="@+id/filename"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/waiting_file" />
+        <Button
+            android:id="@+id/upload"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/upload" />
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/filename"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/waiting_file" />
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add" />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/upload" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/add"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add" />
+    </LinearLayout>
+
+</ScrollView>

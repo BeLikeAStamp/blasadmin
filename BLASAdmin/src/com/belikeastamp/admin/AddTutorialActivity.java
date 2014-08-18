@@ -16,13 +16,15 @@ import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -31,12 +33,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.belikeastamp.admin.model.Tutorial;
+import com.belikeastamp.admin.util.CustomMultiPartEntity;
 import com.belikeastamp.admin.util.DatePickerDialogFragment;
 import com.belikeastamp.admin.util.EngineConfiguration;
 import com.belikeastamp.admin.util.TutorialController;
@@ -48,6 +52,7 @@ public class AddTutorialActivity extends Activity {
 	private Button date, upload;
 	private RadioGroup availability;
 	private TextView filename;
+	private ImageView image;
 	private Long tutorialId = Long.valueOf(123456789);
 	private boolean getFile = false;
 	int selectedId;
@@ -61,6 +66,7 @@ public class AddTutorialActivity extends Activity {
 		upload = (Button) findViewById(R.id.upload);
 		availability = (RadioGroup) findViewById(R.id.availability);
 		filename = (TextView) findViewById(R.id.filename);
+		image = (ImageView) findViewById(R.id.image);
 		Button btn = (Button) findViewById(R.id.add);
 
 		date.setOnClickListener(new View.OnClickListener() {  
@@ -199,13 +205,23 @@ public class AddTutorialActivity extends Activity {
 			if(resultCode==RESULT_OK){
 				String FilePath = data.getData().getPath();
 				filename.setText(FilePath);
+				File f = new File(FilePath);
+				
+				double bytes = f.length();
+				double kilobytes = (bytes / 1024);
+				double megabytes = (kilobytes / 1024);
+				Log.w("TEST", "file length : "+megabytes);
+				
+				if(megabytes < 1) {
+					Bitmap bm = BitmapFactory.decodeFile(data.getData().getPath());
+					image.setImageBitmap(bm); 
 
-				/*Bitmap bm = BitmapFactory.decodeStream(
-						getContentResolver().openInputStream(data.getData()));
-				Bitmap bm = BitmapFactory.decodeFile(data.getData().getPath());
-				image.setImageBitmap(bm); 
-				 */
-				new SendHttpRequestTask(getApplicationContext()).execute(new File(data.getData().getPath()));
+					new SendHttpRequestTask(getApplicationContext()).execute(new File(data.getData().getPath()));
+				}
+				else
+				{
+					Toast.makeText(getApplicationContext(), "La taille du fichier doit être inférieur à 1Mo", Toast.LENGTH_SHORT).show();
+				}
 			}
 			break;		
 		}
@@ -214,14 +230,15 @@ public class AddTutorialActivity extends Activity {
 
 
 
-	public class SendHttpRequestTask extends AsyncTask<File, Void, String>{
-		private ProgressDialog mProgressDialog;
+	public class SendHttpRequestTask extends AsyncTask<File, Integer, String> {
 
 		int serverResponseCode=0;
 		//for uploading..// 
 		String end = "\r\n";
 		String twoHyphens = "--";
 		String boundary = "******";
+		ProgressDialog pd;
+		long totalSize;
 
 		private Context con;
 		StringBuffer buffer=new StringBuffer();
@@ -229,39 +246,61 @@ public class AddTutorialActivity extends Activity {
 		public SendHttpRequestTask(Context con){
 			this.con=con;
 		} 
-		/*
-		@Override 
-		protected void onPreExecute() { 
-			mProgressDialog=new ProgressDialog(con);
-			mProgressDialog.setMessage("Loading");
-			mProgressDialog.show();
-			super.onPreExecute();
-		} */
+
+
+		@Override
+		protected void onPreExecute()
+		{
+			pd = new ProgressDialog(AddTutorialActivity.this);
+			pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			pd.setMessage("Uploading Picture...");
+			pd.setCancelable(false);
+			pd.setIndeterminate(true);
+			pd.show();
+		}
 
 		protected String doInBackground(File... params) {
 
 			File file=params[0];
 
 			try { 
-				String url = EngineConfiguration.path + "upload?correspondance="+tutorialId;
+				String url = EngineConfiguration.path + "upload?type=tutorial&correspondance="+tutorialId;
 				HttpClient client = new DefaultHttpClient();
-		        HttpPost post = new HttpPost(url);
-		        MultipartEntityBuilder builder =MultipartEntityBuilder.create();        
-		        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-		        ContentBody cbFile = new FileBody(file);
-		        builder.addPart("file", cbFile);
-		        builder.addTextBody("name", "uploadedFile");
-		        HttpEntity mpEntity = builder.build();
-		        post.setEntity(mpEntity);
-		        
-		        HttpResponse response = client.execute(post);
-		       
-		        HttpEntity resEntity = response.getEntity();
-		        String Response=EntityUtils.toString(resEntity);
+				HttpPost post = new HttpPost(url);
+
+				MultipartEntityBuilder builder =MultipartEntityBuilder.create();        
+				builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+				ContentBody cbFile = new FileBody(file);
+				builder.addPart("file", cbFile);
+				builder.addTextBody("name", "uploadedFile");
+				totalSize = builder.build().getContentLength();
+				Log.i("totalSize", "totalSize : "+totalSize);
+
+				CustomMultiPartEntity multipartContent = new CustomMultiPartEntity(builder, new CustomMultiPartEntity.ProgressListener() {
+
+					@Override
+					public void transferred(long num) {
+						// TODO Auto-generated method stub
+						publishProgress((int) ((num / (float) totalSize) * 100));
+					}
+				});
+
+
+
+				//HttpEntity mpEntity = builder.build();
+				HttpEntity mpEntity = multipartContent.getEntity();
+
+				post.setEntity(mpEntity);
+
+				HttpResponse response = client.execute(post);
+
+				HttpEntity resEntity = response.getEntity();
+				String Response=EntityUtils.toString(resEntity);
 
 
 				Log.i("uploadFile", "HTTP Response is : "
 						+ Response);
+
 
 			} catch (UnsupportedEncodingException e) {
 
@@ -272,11 +311,22 @@ public class AddTutorialActivity extends Activity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 
-			
-			//mProgressDialog.dismiss();
 
 			return null; 
 		} 
+
+		@Override
+		protected void onProgressUpdate(Integer... progress)
+		{
+			pd.setProgress((int) (progress[0]));
+		}
+
+		@Override
+		protected void onPostExecute(String s)
+		{
+			pd.dismiss();
+		}
+
 
 	} 
 
