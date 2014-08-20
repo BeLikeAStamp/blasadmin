@@ -29,6 +29,7 @@ import org.restlet.resource.ClientResource;
 import android.util.Log;
 
 import com.belikeastamp.admin.model.Tutorial;
+import com.belikeastamp.admin.model.User;
 
 public class TutorialController {
 	// JSON Node names
@@ -36,9 +37,9 @@ public class TutorialController {
 	private static final String TAG_ID = "id";
 	private static final String TAG_TITLE = "title";
 	private static final String TAG_FILE = "file";
-	private static final String TAG_AVAIL = "availability";
+	private static final String TAG_AVAIL = "available";
 	private static final String TAG_DATE = "date";
-	private static final String TAG_DEMAND = "demand";
+	private static final String TAG_DEMAND = "onDemand";
 
 	public final ClientResource cr = new ClientResource(EngineConfiguration.path + "rest/tutorial");
 
@@ -95,6 +96,21 @@ public class TutorialController {
 		return list;
 	}
 
+	public Long getTutorialId(String title) {
+		InputStream inputStream = getInputStreamFromUrl(EngineConfiguration.path + "rest/tutorial?title="+title);
+		List<Tutorial> list = new ArrayList<Tutorial>();
+		try { 
+			String jsonStr = convertInputStreamToString(inputStream);
+			Log.d("Response: ", "> " + jsonStr);
+			list = JSON2Tutorial(jsonStr);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		return (list.size() > 0) ? list.get(0).getId() : Long.valueOf(-1);
+	}
+	
 	private List<Tutorial> JSON2Tutorial(String json) {
 		// TODO Auto-generated method stub
 		List<Tutorial> tutorials = new ArrayList<Tutorial>();
@@ -159,7 +175,7 @@ public class TutorialController {
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair(TAG_TITLE, tuto.getTitle()));
-			params.add(new BasicNameValuePair(TAG_AVAIL, tuto.getAvailabale().toString()));
+			params.add(new BasicNameValuePair(TAG_AVAIL, tuto.getAvailable().toString()));
 			params.add(new BasicNameValuePair(TAG_FILE, tuto.getFile()));
 			params.add(new BasicNameValuePair(TAG_DATE, tuto.getDate()));
 			params.add(new BasicNameValuePair(TAG_DEMAND, tuto.getOnDemand().toString()));
@@ -202,7 +218,7 @@ public class TutorialController {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("id", ""+tuto.getId()));
 			params.add(new BasicNameValuePair(TAG_TITLE, tuto.getTitle()));
-			params.add(new BasicNameValuePair(TAG_AVAIL, tuto.getAvailabale().toString()));
+			params.add(new BasicNameValuePair(TAG_AVAIL, tuto.getAvailable().toString()));
 			params.add(new BasicNameValuePair(TAG_FILE, tuto.getFile()));
 			params.add(new BasicNameValuePair(TAG_DATE, tuto.getDate()));
 			params.add(new BasicNameValuePair(TAG_DEMAND, tuto.getOnDemand().toString()));

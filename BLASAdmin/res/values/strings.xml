@@ -38,6 +38,6 @@
     <string name="available">disponible</string>
     <string name="not_available">à la demande</string>
     <string name="waiting_file">Fichier en attente</string>
-    <string name="upload">Charger le fichier</string>
+    <string name="choose_file">Choisir le fichier (jpeg de taille inférieur à 1Mo)</string>
 
 </resources>

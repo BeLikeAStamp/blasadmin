@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -36,7 +37,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.belikeastamp.admin.model.Tutorial;
@@ -47,28 +47,30 @@ import com.belikeastamp.admin.util.TutorialController;
 
 public class AddTutorialActivity extends Activity {
 	private static final int PICKFILE_RESULT_CODE = 1;
-
+	private static final int ENTRY_OK = 0;
+	private static final int ILLEGAL_CHAR = 1;
+	private static final int EMPTY = 2;
+	
 	private EditText title;
-	private Button date, upload;
+	private Button date, choose_file;
 	private RadioGroup availability;
-	private TextView filename;
 	private ImageView image;
-	private Long tutorialId = Long.valueOf(123456789);
-	private boolean getFile = false;
+	private Button btn;
+	private Long tutorialId = Long.valueOf(-1);
 	int selectedId;
-
+	File file =  null;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addtutorial);
 
 		title = (EditText) findViewById(R.id.title);
 		date = (Button) findViewById(R.id.date);
-		upload = (Button) findViewById(R.id.upload);
+		choose_file = (Button) findViewById(R.id.choose_file);
 		availability = (RadioGroup) findViewById(R.id.availability);
-		filename = (TextView) findViewById(R.id.filename);
 		image = (ImageView) findViewById(R.id.image);
-		Button btn = (Button) findViewById(R.id.add);
-
+		btn = (Button) findViewById(R.id.add);
+		
 		date.setOnClickListener(new View.OnClickListener() {  
 			@Override  
 			public void onClick(View v) {  
@@ -93,7 +95,7 @@ public class AddTutorialActivity extends Activity {
 			}
 		});
 
-		upload.setOnClickListener(new View.OnClickListener() {
+		choose_file.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -112,7 +114,30 @@ public class AddTutorialActivity extends Activity {
 				// TODO Auto-generated method stub
 				String msg = checkEntries();
 				if(msg.length() == 0) {
-					addTutorial();
+					//addTutorial();
+
+					Tutorial tuto = new Tutorial(title.getText().toString(), 
+							(selectedId == R.id.available ? true :  false) ,
+							"tuto_"+title.getText().toString(), date.getText().toString(), 0);
+					try {
+						Toast.makeText(getApplicationContext(), "Please wait..", Toast.LENGTH_LONG).show();
+						btn.setEnabled(false);
+						tutorialId = new AddTutorialTask().execute(tuto).get();
+						if(!tutorialId.equals(Long.valueOf(-1)) && file != null) {
+							new SendHttpRequestTask(getApplicationContext()).execute(file);
+						}
+						else
+						{
+							Log.e("AJOUT BLOB","echec ajout tuto ?? ou pas dispo");
+						}
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 				}
 				else {
 					// TOAST
@@ -128,7 +153,7 @@ public class AddTutorialActivity extends Activity {
 
 				Tutorial tuto = new Tutorial(title.getText().toString(), 
 						(selectedId == R.id.available ? true :  false) ,
-						filename.getText().toString(), date.getText().toString(), 0);
+						"tuto_"+title.getText().toString(), date.getText().toString(), 0);
 
 				final TutorialController c = new TutorialController();
 				try {
@@ -138,9 +163,13 @@ public class AddTutorialActivity extends Activity {
 					e.printStackTrace();
 					return;
 				}
-				final Intent intent = new Intent(AddTutorialActivity.this,
+
+				// Recuperation de l'id du tutoriel
+
+
+				/*final Intent intent = new Intent(AddTutorialActivity.this,
 						GetAllWorkshopActivity.class);
-				startActivity(intent);
+				startActivity(intent);*/
 			}
 		};
 		checkUpdate.start();
@@ -164,12 +193,17 @@ public class AddTutorialActivity extends Activity {
 	private String checkEntries() {
 		StringBuffer sb = new StringBuffer("");
 
-		if(title.getText().length() == 0) {
-			sb.append("- Il faut un titre de tutoriel\n");
+		int ret = checkTitle(title.getText().toString());
+		if(ret == EMPTY) {
+			sb.append("-Il faut un titre de tutoriel\n");
+		}
+		else if(ret == ILLEGAL_CHAR)
+		{
+			sb.append("-Il y a des caractères interdis dans le titre\n");
 		}
 
-		if(selectedId == R.id.available && (!getFile)) {
-			sb.append("- Un tuto disponible = fichier attaché\n");
+		if(selectedId == R.id.available && (file == null)) {
+			sb.append("-Un tuto disponible = fichier attaché\n");
 		}
 
 		if(date.getText().toString().equals(getResources().getString(R.string.upload_date))) {
@@ -204,19 +238,17 @@ public class AddTutorialActivity extends Activity {
 		case PICKFILE_RESULT_CODE:
 			if(resultCode==RESULT_OK){
 				String FilePath = data.getData().getPath();
-				filename.setText(FilePath);
 				File f = new File(FilePath);
-				
+
 				double bytes = f.length();
 				double kilobytes = (bytes / 1024);
 				double megabytes = (kilobytes / 1024);
 				Log.w("TEST", "file length : "+megabytes);
-				
+
 				if(megabytes < 1) {
 					Bitmap bm = BitmapFactory.decodeFile(data.getData().getPath());
 					image.setImageBitmap(bm); 
-
-					new SendHttpRequestTask(getApplicationContext()).execute(new File(data.getData().getPath()));
+					file = new File(data.getData().getPath());
 				}
 				else
 				{
@@ -224,6 +256,25 @@ public class AddTutorialActivity extends Activity {
 				}
 			}
 			break;		
+		}
+
+	}
+
+
+	public class AddTutorialTask extends AsyncTask<Tutorial, Integer, Long> {
+
+		@Override
+		protected Long doInBackground(Tutorial... params) {
+			Tutorial tuto = params[0];
+
+			final TutorialController c = new TutorialController();
+			try {
+				c.create(tuto);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+			return c.getTutorialId(tuto.getTitle());
 		}
 
 	}
@@ -285,9 +336,6 @@ public class AddTutorialActivity extends Activity {
 					}
 				});
 
-
-
-				//HttpEntity mpEntity = builder.build();
 				HttpEntity mpEntity = multipartContent.getEntity();
 
 				post.setEntity(mpEntity);
@@ -326,11 +374,13 @@ public class AddTutorialActivity extends Activity {
 		{
 			pd.dismiss();
 		}
-
-
 	} 
 
-
-
+	private int checkTitle(String s) {
+		int ret = ENTRY_OK;
+		if(!(s.matches("[a-zA-Z0-9_]*"))) ret = ILLEGAL_CHAR;
+		if (s.length() == 0) ret = EMPTY;
+		return ret;		
+	}
 }
 
