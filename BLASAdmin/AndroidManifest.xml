@@ -36,6 +36,8 @@
         <activity android:name=".GetAllUserActivity" />
         <activity android:name=".TutorialAdminActivity" />
         <activity android:name=".AddTutorialActivity" />
+        <activity android:name=".GetAllTutorialActivity" />
+        
     </application>
 
 </manifest>

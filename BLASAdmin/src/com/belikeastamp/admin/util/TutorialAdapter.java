@@ -19,8 +19,11 @@ public class TutorialAdapter extends ArrayAdapter<Tutorial> {
 	private final  List<Tutorial> values;
 
 	static class ViewHolder {
-		public TextView data;
 		public ImageView icon;
+		public TextView title;
+		public TextView date;
+		public TextView available;
+		public TextView demand;
 	}
 	public TutorialAdapter(Context context, List<Tutorial> objects) {
 		super(context,R.layout.tutorial_listview, objects);
@@ -35,35 +38,37 @@ public class TutorialAdapter extends ArrayAdapter<Tutorial> {
 		View rowView = convertView;//inflater.inflate(R.layout.workshop_listview, parent, false);
 		if (rowView == null) {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			rowView = inflater.inflate(R.layout.workshop_listview, null);
+			rowView = inflater.inflate(R.layout.tutorial_listview, null);
 			// configure view holder
 			ViewHolder viewHolder = new ViewHolder();
-			viewHolder.data= (TextView) rowView.findViewById(R.id.data);
 			viewHolder.icon = (ImageView) rowView.findViewById(R.id.icon);
+			viewHolder.title= (TextView) rowView.findViewById(R.id.title);
+			viewHolder.date= (TextView) rowView.findViewById(R.id.date);
+			viewHolder.available= (TextView) rowView.findViewById(R.id.available);
+			viewHolder.demand= (TextView) rowView.findViewById(R.id.demand);
+			
 			rowView.setTag(viewHolder);
 		}
 
 		// fill data
-		/*ViewHolder holder = (ViewHolder) rowView.getTag();
-		holder.data.setText(values.get(position).getTheme() +" in "+values.get(position).getTown()+" ("+values.get(position).getDate()+")");
-		//holder.data.setText(values.get(position).toString());
-		holder.data.setTag(values.get(position));
-
-		int ratio = 0;
-		if(values.get(position).getRegistered() > 0 ) 
-			ratio = values.get(position).getCapacity()/values.get(position).getRegistered();
-
-		if (values.get(position).getRegistered() == 0) {
+		ViewHolder holder = (ViewHolder) rowView.getTag();
+		
+		if (values.get(position).getOnDemand() == 0) {
 			holder.icon.setImageResource(R.drawable.nobody);
-		} else if (values.get(position).getRegistered() > 0 && ratio >= 3){
+		} else if (values.get(position).getOnDemand() >= 5 && values.get(position).getOnDemand() < 10) {
 			holder.icon.setImageResource(R.drawable.tiers);
-		} else if (ratio < 3 && ratio >= 2){
+		}else if (values.get(position).getOnDemand() >= 10 && values.get(position).getOnDemand() < 15) {
 			holder.icon.setImageResource(R.drawable.middle);
-		} else if (ratio < 2 && values.get(position).getRegistered() < values.get(position).getCapacity()){
+		} else if (values.get(position).getOnDemand() >= 15 && values.get(position).getOnDemand() < 20) {
 			holder.icon.setImageResource(R.drawable.twotiers);
 		} else {
 			holder.icon.setImageResource(R.drawable.full);
-		}*/
+		}
+		
+		holder.title.setText(context.getResources().getString(R.string.title)+" : "+values.get(position).getTitle());
+		holder.date.setText(context.getResources().getString(R.string.date)+" : "+values.get(position).getDate());
+		holder.available.setText(context.getResources().getString(R.string.availability)+" : "+values.get(position).getAvailable().toString());
+		
 
 		return rowView;
 	}

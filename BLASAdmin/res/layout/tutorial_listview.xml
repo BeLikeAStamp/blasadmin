@@ -1,39 +1,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="6dip" >
-
-    <ImageView
-        android:id="@+id/file"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="6dip"
-        android:maxWidth="18dp"
-        android:src="@drawable/host" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/file"
-        android:text="@string/address" />
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/file"
-        android:layout_below="@id/title"
-        android:text="@string/town" />
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_below="@id/title" />
 
     <TextView
         android:id="@+id/available"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/file"
-        android:layout_below="@id/date"
-        android:text="@string/app_name" />
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_below="@id/date" />
+
+    <TextView
+        android:id="@+id/demand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/available"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:text="@string/nbr_demand" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/demand"
+        android:layout_toRightOf="@id/demand" />
 
 </RelativeLayout>

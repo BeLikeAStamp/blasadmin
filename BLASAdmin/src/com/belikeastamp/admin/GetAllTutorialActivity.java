@@ -9,6 +9,7 @@ import com.belikeastamp.admin.util.TutorialAdapter;
 import com.belikeastamp.admin.util.TutorialController;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -59,7 +60,8 @@ public class GetAllTutorialActivity extends Activity {
 	}
 
 	private class Request extends AsyncTask<Void, Void, List<Tutorial>> {
-
+		ProgressDialog dialog;
+		
 		@SuppressWarnings("unchecked")
 		@Override
 		protected List<Tutorial> doInBackground(Void... params) {
