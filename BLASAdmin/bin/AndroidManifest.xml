@@ -37,7 +37,10 @@
         <activity android:name=".TutorialAdminActivity" />
         <activity android:name=".AddTutorialActivity" />
         <activity android:name=".GetAllTutorialActivity" />
-        
+        <activity android:name=".ProjectAdminActivity" />
+        <activity android:name=".AddProjectActivity" />
+        <activity android:name=".GetAllProjectActivity" />
+        <activity android:name=".EditProjectActivity" />
     </application>
 
 </manifest>

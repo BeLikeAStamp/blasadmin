@@ -55,23 +55,6 @@ public class UserAdapter extends ArrayAdapter<User> {
 		if(values.get(position).getIsPartener()) 
 			holder.partener.setImageResource(R.drawable.partener);
 		
-		// change the icon for Windows and iPhone
-		/*int ratio = 0;
-		if(values.get(position).getRegistered() > 0 ) 
-			ratio = values.get(position).getCapacity()/values.get(position).getRegistered();
-
-		if (values.get(position).getRegistered() == 0) {
-			holder.icon.setImageResource(R.drawable.nobody);
-		} else if (values.get(position).getRegistered() > 0 && ratio >= 3){
-			holder.icon.setImageResource(R.drawable.tiers);
-		} else if (ratio < 3 && ratio >= 2){
-			holder.icon.setImageResource(R.drawable.middle);
-		} else if (ratio < 2 && values.get(position).getRegistered() < values.get(position).getCapacity()){
-			holder.icon.setImageResource(R.drawable.twotiers);
-		} else {
-			holder.icon.setImageResource(R.drawable.full);
-		}*/
-
 		return rowView;
 	}
 

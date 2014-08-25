@@ -31,7 +31,7 @@
     <string name="email">Email</string>
     <string name="partener">Filleule</string>
     <string name="host">Hôtesse</string>
-     <!-- ajout dun tuto -->
+    <!-- ajout dun tuto -->
     <string name="title">Titre</string>
     <string name="upload_date">Date de mise en ligne</string>
     <string name="availability">Disponobilité</string>
@@ -40,5 +40,30 @@
     <string name="waiting_file">Fichier en attente</string>
     <string name="choose_file">Choisir le fichier (jpeg de taille inférieur à 1Mo)</string>
     <string name="nbr_demand">Nombre de demande</string>
+    <!-- gestion des projets -->
+    <string name="submit_date">Date de soumission</string>
+    <string name="order_date">Date de livraison souhaitée</string>
+    <string name="project_type">Type de projet</string>
+    <string name="how_many_cards">Combien de cartes</string>
+    <string name="file">Fichier joint</string>
+    <string name="infos">Infos complémentaires</string>
+    <string name="project_name">Nom du projet</string>
+    <string name="for_when">Pour quand ?</string>
+    <string name="selected_colors">Couleurs choisies</string>
+    <string name="to_put_on_card">Afficher sur la carte</string>
+    <string name="age">Age</string>
+	<string name="perso">Personalisation</string>
+	<string name="maj">MAJ statut</string>
+	<string name="upload_proto">Charger proto</string>
+	
+    <!-- ARRAYS -->
+    <string-array name="status_arrays">
+        <item>Projet soumis</item>
+        <item>Projet accepté</item>
+        <item>Prototype en cours</item>
+        <item>Prototype en attente de validation</item>
+        <item>Réalisation en cours</item>
+        <item>Réalisation finie</item>
+    </string-array>
 
 </resources>

@@ -13,7 +13,7 @@ public class Project implements Serializable {
 	private Long userId;
 	private String name;
 	private String subDate;
-	private String theme;
+	private String detail;
 	private String type;
 	private String orderDate;
 	private String perso;
@@ -26,13 +26,13 @@ public class Project implements Serializable {
 
 
 	public Project(Long userId, String project_name, String sub_date, int project_status,
-			String theme, String type, String order_date, int nbr_cards, String perso) {
+			String detail, String type, String order_date, int nbr_cards, String perso) {
 		super();
 		this.userId = userId;
 		this.name = project_name;
 		this.subDate = sub_date;
 		this.status = project_status;
-		this.theme = theme;
+		this.detail = detail;
 		this.type = type;
 		this.orderDate = order_date;
 		this.quantity = nbr_cards;
@@ -81,14 +81,14 @@ public class Project implements Serializable {
 
 
 
-	public String getTheme() {
-		return theme;
+	public String getDetail() {
+		return detail;
 	}
 
 
 
-	public void setTheme(String theme) {
-		this.theme = theme;
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 
 
@@ -162,6 +162,21 @@ public class Project implements Serializable {
 	public void setColors(String colors) {
 		this.colors = colors;
 	}
-	
-	
+
+	public String getPrintableDetails() {
+
+		String s = getDetail().replace(", ", "\n");
+		return s;
+	}
+
+	@Override
+	public String toString() {
+		return "Project [id=" + id + ", userId=" + userId + ", name=" + name
+				+ ", subDate=" + subDate + ", detail=" + detail + ", type="
+				+ type + ", orderDate=" + orderDate + ", perso=" + perso
+				+ ", colors=" + colors + ", status=" + status + ", quantity="
+				+ quantity + "]";
+	}
+
+
 }
