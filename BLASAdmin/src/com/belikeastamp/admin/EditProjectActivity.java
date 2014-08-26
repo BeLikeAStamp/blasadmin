@@ -52,7 +52,15 @@ public class EditProjectActivity extends Activity {
 	private static final int PICKFILE_RESULT_CODE = 1;
 	private static final int PROTO_DISPO = 3;
 	private static final int PROJECT_DISPO = 5;
+	private final static int PROTO = 0;
+	private final static int PROJET = 1;
+	private final static int REAL = 2;
 
+	private final static int ACCEPT = 0;
+	private final static int INPROGRESS = 1;
+	private final static int DISPO = 2;
+	private final String TAG = "[DWBC]";
+	
 	private TextView name, type, perso, subdate, orderdate, colors ;
 	private Spinner status;
 	private Button maj, upload, back, save;
@@ -151,10 +159,10 @@ public class EditProjectActivity extends Activity {
 
 					if(userPhoneNumer.length() > 0) {
 						if(selected_status == PROTO_DISPO) {
-							sendSMS(userPhoneNumer, "[PROTO]prototype disponible pour le projet "+p.getName());
+							sendSMS(userPhoneNumer, TAG+";"+PROTO+";"+DISPO+";"+p.getName());
 						}
 						else if(selected_status == PROJECT_DISPO) {
-							sendSMS(userPhoneNumer, "[REAL]réalisation disponible pour le projet "+p.getName());
+							sendSMS(userPhoneNumer, TAG+";"+PROJET+";"+DISPO+";"+p.getName());
 						}
 					}
 				}
