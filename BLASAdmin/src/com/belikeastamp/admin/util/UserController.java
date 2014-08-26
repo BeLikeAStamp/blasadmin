@@ -112,6 +112,21 @@ public class UserController {
 	
 		return (list.size() > 0) ? list.get(0).getId() : Long.valueOf(-1);
 	}
+	
+	public String getPhone(Long id) {
+		InputStream inputStream = getInputStreamFromUrl(EngineConfiguration.path + "rest/user?id="+id);
+		List<User> list = new ArrayList<User>();
+		try { 
+			String jsonStr = convertInputStreamToString(inputStream);
+			Log.d("Response: ", "> " + jsonStr);
+			list = JSON2User(jsonStr);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		return (list.size() > 0) ? list.get(0).getPhone() : "";
+	}
 
 	private List<User> JSON2User(String json) {
 		// TODO Auto-generated method stub

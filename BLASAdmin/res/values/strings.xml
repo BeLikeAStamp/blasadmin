@@ -63,7 +63,7 @@
         <item>Prototype en cours</item>
         <item>Prototype en attente de validation</item>
         <item>Réalisation en cours</item>
-        <item>Réalisation finie</item>
+        <item>Réalisation terminée</item>
     </string-array>
 
 </resources>

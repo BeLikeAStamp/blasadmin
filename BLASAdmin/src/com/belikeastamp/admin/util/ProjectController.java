@@ -116,6 +116,9 @@ public class ProjectController {
 		return (list.size() > 0) ? list.get(0).getId() : Long.valueOf(-1);
 	}
 	
+	public String getUserPhoneNumber(Long userId) {
+		return new UserController().getPhone(userId);
+	}
 	
 	private List<Project> JSON2Project(String json) {
 		// TODO Auto-generated method stub

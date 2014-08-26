@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,11 +26,17 @@ import com.belikeastamp.admin.util.EngineConfiguration;
 import com.belikeastamp.admin.util.ProjectController;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,8 +48,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class EditProjectActivity extends Activity {
-	
+
 	private static final int PICKFILE_RESULT_CODE = 1;
+	private static final int PROTO_DISPO = 3;
+	private static final int PROJECT_DISPO = 5;
+
 	private TextView name, type, perso, subdate, orderdate, colors ;
 	private Spinner status;
 	private Button maj, upload, back, save;
@@ -53,7 +63,7 @@ public class EditProjectActivity extends Activity {
 	boolean updateProto = false;
 	int selected_status;
 	private File file = null;
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.editproject);
@@ -75,7 +85,7 @@ public class EditProjectActivity extends Activity {
 		upload = (Button) findViewById(R.id.upload);
 		back =  (Button) findViewById(R.id.back);
 		save =  (Button) findViewById(R.id.save);
-		
+
 		maj.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -85,7 +95,7 @@ public class EditProjectActivity extends Activity {
 						android.R.layout.simple_spinner_item, Arrays.asList(statusList));
 				dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				status.setAdapter(dataAdapter);
-				
+
 				status.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 					@Override
@@ -100,7 +110,7 @@ public class EditProjectActivity extends Activity {
 					public void onNothingSelected(AdapterView<?> parent) {
 						// TODO Auto-generated method stub
 						updateStatus = false;
-						
+
 					}
 				});
 			}
@@ -114,7 +124,7 @@ public class EditProjectActivity extends Activity {
 				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 				intent.setType("image/jpeg"); 
 				startActivityForResult(intent, PICKFILE_RESULT_CODE);
-				
+
 			}
 
 		});
@@ -124,18 +134,39 @@ public class EditProjectActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				if(updateStatus) new UpdateStatusTask().execute(p);
+				if(updateStatus) {
+					new UpdateStatusTask().execute(p);
+					Toast.makeText(getApplicationContext(), "Mise à jour prise en compte", Toast.LENGTH_SHORT).show();
+					String userPhoneNumer = "";
+
+					try {
+						userPhoneNumer = new GetUserPhoneNumberTask().execute(p).get();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					if(userPhoneNumer.length() > 0) {
+						if(selected_status == PROTO_DISPO) {
+							sendSMS(userPhoneNumer, "[PROTO]prototype disponible pour le projet "+p.getName());
+						}
+						else if(selected_status == PROJECT_DISPO) {
+							sendSMS(userPhoneNumer, "[REAL]réalisation disponible pour le projet "+p.getName());
+						}
+					}
+				}
+				
 				if(updateProto && file != null) {
 					new SendHttpRequestTask(getApplicationContext()).execute(file);
-				}
-				else
-				{
-					Log.e("AJOUT BLOB","echec ajout proto ??");
+					Toast.makeText(getApplicationContext(), "Prototype envoyé", Toast.LENGTH_SHORT).show();
 				}
 			}
 
 		});
-		
+
 		back.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -166,7 +197,7 @@ public class EditProjectActivity extends Activity {
 		status.setAdapter(dataAdapter);
 	}
 
-	
+
 	protected class UpdateStatusTask extends AsyncTask<Project, Void, Void> {
 
 		@Override
@@ -186,8 +217,29 @@ public class EditProjectActivity extends Activity {
 		}
 
 	}
-	
-	
+
+	protected class GetUserPhoneNumberTask extends AsyncTask<Project, Void, String> {
+
+		@Override
+		protected String doInBackground(Project... params) {
+
+			Project proj = params[0];
+			String phoneNumber = "";
+			Log.d("UpdateStatusTask", "Project = "+proj);
+
+			try {
+				phoneNumber = c.getUserPhoneNumber(proj.getUserId());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+
+			return phoneNumber;
+		}
+
+	}
+
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -307,5 +359,71 @@ public class EditProjectActivity extends Activity {
 			pd.dismiss();
 		}
 	}
-	
+
+	private void sendSMS(final String phoneNumber, final String message) {
+		String SENT = "SMS_SENT";
+		String DELIVERED = "SMS_DELIVERED";
+
+		PendingIntent sentPI = PendingIntent.getBroadcast(this, 0, new Intent(
+				SENT), 0);
+
+		PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0,
+				new Intent(DELIVERED), 0);
+
+		// ---when the SMS has been sent---
+		registerReceiver(new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context arg0, Intent arg1) {
+				switch (getResultCode()) {
+				case Activity.RESULT_OK:
+					ContentValues values = new ContentValues();
+
+					values.put("address", phoneNumber);// txtPhoneNo.getText().toString());
+		values.put("body", message);
+
+		getContentResolver().insert(
+				Uri.parse("content://sms/sent"), values);
+		Toast.makeText(getBaseContext(), "SMS sent",
+				Toast.LENGTH_SHORT).show();
+		break;
+				case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+					Toast.makeText(getBaseContext(), "Generic failure",
+							Toast.LENGTH_SHORT).show();
+					break;
+				case SmsManager.RESULT_ERROR_NO_SERVICE:
+					Toast.makeText(getBaseContext(), "No service",
+							Toast.LENGTH_SHORT).show();
+					break;
+				case SmsManager.RESULT_ERROR_NULL_PDU:
+					Toast.makeText(getBaseContext(), "Null PDU",
+							Toast.LENGTH_SHORT).show();
+					break;
+				case SmsManager.RESULT_ERROR_RADIO_OFF:
+					Toast.makeText(getBaseContext(), "Radio off",
+							Toast.LENGTH_SHORT).show();
+					break;
+				}
+			}
+		}, new IntentFilter(SENT));
+
+		// ---when the SMS has been delivered---
+		registerReceiver(new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context arg0, Intent arg1) {
+				switch (getResultCode()) {
+				case Activity.RESULT_OK:
+					Toast.makeText(getBaseContext(), "SMS delivered",
+							Toast.LENGTH_SHORT).show();
+					break;
+				case Activity.RESULT_CANCELED:
+					Toast.makeText(getBaseContext(), "SMS not delivered",
+							Toast.LENGTH_SHORT).show();
+					break;
+				}
+			}
+		}, new IntentFilter(DELIVERED));
+
+		SmsManager sms = SmsManager.getDefault();
+		sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+	}
 }
