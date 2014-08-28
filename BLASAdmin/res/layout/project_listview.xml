@@ -5,21 +5,28 @@
     android:orientation="vertical"
     android:padding="6dip" >
 
+    
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+    
     <TextView
         android:id="@+id/submitdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:text="submitdate"
+        android:layout_below="@id/name"
         android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/submitdate"
-        android:text="type"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
@@ -28,7 +35,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/type"
-        android:text="nbr_cards"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
@@ -37,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/nbr_cards"
-        android:text="orderdate"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
@@ -46,7 +51,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/orderdate"
-        android:text="status"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 

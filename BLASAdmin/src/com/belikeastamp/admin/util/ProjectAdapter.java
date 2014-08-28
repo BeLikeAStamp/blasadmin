@@ -20,6 +20,7 @@ public class ProjectAdapter extends ArrayAdapter<Project> {
 	private final String[] status;
 	
 	static class ViewHolder {
+		public TextView name;
 		public TextView submitdate;
 		public TextView type;
 		public TextView nbr_cards;
@@ -43,6 +44,7 @@ public class ProjectAdapter extends ArrayAdapter<Project> {
 			rowView = inflater.inflate(R.layout.project_listview, null);
 			// configure view holder
 			ViewHolder viewHolder = new ViewHolder();
+			viewHolder.name =  (TextView) rowView.findViewById(R.id.name);
 			viewHolder.submitdate = (TextView) rowView.findViewById(R.id.submitdate);
 			viewHolder.type = (TextView) rowView.findViewById(R.id.type);
 			viewHolder.nbr_cards = (TextView) rowView.findViewById(R.id.nbr_cards);
@@ -54,7 +56,7 @@ public class ProjectAdapter extends ArrayAdapter<Project> {
 
 		// fill data
 		ViewHolder holder = (ViewHolder) rowView.getTag();
-		
+		holder.name.setText(context.getResources().getString(R.string.project_name)+" : "+values.get(position).getName());
 		holder.submitdate.setText(context.getResources().getString(R.string.submit_date)+" : "+values.get(position).getSubDate());
 		holder.submitdate.setTag(values.get(position));
 		holder.type.setText(context.getResources().getString(R.string.project_type)+" : "+values.get(position).getType());

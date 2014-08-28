@@ -57,11 +57,14 @@
 	<string name="upload_proto">Charger proto</string>
 	
     <!-- ARRAYS -->
-    <string-array name="status_arrays">
+       <string-array name="status_arrays">
         <item>Projet soumis</item>
         <item>Projet accepté</item>
+        <item>Projet refusé</item>
         <item>Prototype en cours</item>
         <item>Prototype en attente de validation</item>
+        <item>Prototype accepté</item>
+        <item>Prototype refusé</item>
         <item>Réalisation en cours</item>
         <item>Réalisation terminée</item>
     </string-array>
