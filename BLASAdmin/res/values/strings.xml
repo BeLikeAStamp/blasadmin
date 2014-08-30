@@ -1,8 +1,8 @@
 <resources>
-
-    <string name="app_name">BLAS Admin</string>
+	<string name="app_name">DWGC ADMIN</string>
+    <string name="contact_email">andronekomimi@gmail.com</string> <!-- A CHANGER !!! -->
     <string name="project">Projets</string>
-    <string name="workshop">Ateliers</string>
+    <string name="workshops">Ateliers</string>
     <string name="tuto">Tutoriels</string>
     <string name="registration">Inscriptions</string>
     <string name="users">Utilisateurs</string>
@@ -52,12 +52,27 @@
     <string name="selected_colors">Couleurs choisies</string>
     <string name="to_put_on_card">Afficher sur la carte</string>
     <string name="age">Age</string>
-	<string name="perso">Personalisation</string>
-	<string name="maj">MAJ statut</string>
-	<string name="upload_proto">Charger proto</string>
-	
+    <string name="perso">Personalisation</string>
+    <string name="maj">MAJ statut</string>
+    <string name="upload_proto">Charger proto</string>
+    <!-- inscription -->
+    <string name="inscription_date">Date de demande</string>
+    <string name="workshop">Atelier</string>
+    <string name="nbr_participant">Nombre d\'inscrits</string>
+    <string name="name_firstname">Nom et prénom</string>
+    <string name="level">Niveau d\'expertise</string>
+    <string name="see_wk">(Voir Atelier)</string>
+    <string name="insc_status">Statut de l\'inscription</string>
+    <string name="btn_send_invit">Inviter</string>
+    <string name="btn_send_wk_complet">Complet</string>
+    <string name="btn_validate">Valider</string>
+    <string name="email_subject_inscription">[DWGetCrafty] Demande d\'inscription à l\'atelier %1$s</string>
+    <string name="email_body_invit">Bonjour,\n\nMerci pour votre demande d\'inscription. Le déroulement d\'un atelier est le suivant :----------- prix : %1$s ---------------\n\nA bientôt!\nTeam DWGetCrafty</string>
+    <string name="email_body_complet">Bonjour,\n\nMerci pour votre demande d\'inscription. Malheureusement cet atelier est complet. Mais nous tenons compte de votre intérêt. Rien n\'est perdu, on remettra ça.\n----------- a compléter ---------------\n\nA bientôt!\nTeam DWGetCrafty</string>
+    <string name="email_body_validate">Bonjour,\n\nMerci pour votre confirmation d\'inscription. Ce dernier aura lieu le %1$s à %2$s.\n Notre charmante hôtesse, %3$s, nous recevra à l\'adresse suivante : %4$s (%5$s).\n----------- a compléter ---------------\n\nA bientôt!\nTeam DWGetCrafty</string>
+    
     <!-- ARRAYS -->
-       <string-array name="status_arrays">
+    <string-array name="status_arrays">
         <item>Projet soumis</item>
         <item>Projet accepté</item>
         <item>Projet refusé</item>

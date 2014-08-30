@@ -12,15 +12,7 @@ public class RegistrationAdminActivity extends Activity {
 		setContentView(R.layout.admin);
 
 		Button add = (Button) findViewById(R.id.add);
-		add.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent i = new Intent(RegistrationAdminActivity.this, AddRegistrationActivity.class);
-				startActivity(i);
-			}
-		});
+		add.setEnabled(false);
 		
 		Button get = (Button) findViewById(R.id.get);
 		get.setOnClickListener(new View.OnClickListener() {

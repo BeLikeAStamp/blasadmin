@@ -2,6 +2,7 @@ package com.belikeastamp.admin.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,139 +27,124 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.restlet.resource.ClientResource;
 
+import com.belikeastamp.admin.model.Inscription;
+
 import android.util.Log;
 
-import com.belikeastamp.admin.model.Workshop;
-
-public class WorkshopController {
+public class InscriptionController {
 	// JSON Node names
-	private static final String TAG_WS = "workshops";
+	private static final String TAG_INSC = "Inscriptions";
 	private static final String TAG_ID = "id";
-	private static final String TAG_THEME = "theme";
-	private static final String TAG_HOSTNAME = "hostname";
-	private static final String TAG_ADDRESS = "address";
-	private static final String TAG_TOWN = "town";
-	private static final String TAG_DATE = "date";
-	private static final String TAG_CAPACITY = "capacity";
-	private static final String TAG_REGISTERED = "registered";
-	private static final String TAG_PRICE = "price";
+	private static final String TAG_WID = "workshopId";
+	private static final String TAG_NAME = "name";
+	private static final String TAG_PHONE = "phoneNumber";
+	private static final String TAG_EMAIL = "email";
+	private static final String TAG_EXPERT = "expertise";
+	private static final String TAG_DATE = "inscriptionDate";
+	private static final String TAG_STATUS = "inscriptionStatus";
+	private static final String TAG_PART = "partcipants";
 
-	public final ClientResource cr = new ClientResource(EngineConfiguration.path + "rest/workshop");
+	public final ClientResource cr = new ClientResource(EngineConfiguration.path + "rest/inscription");
 
-	public WorkshopController() {
+	public InscriptionController() {
 		EngineConfiguration.getInstance();
 		cr.setRequestEntityBuffering(true);
-		Log.i("WorkshopController", "initialisation ok !");
+		Log.i("InscriptionController", "initialisation ok !");
 	}
 
-	public void create(Workshop ws) throws Exception {
+	public void create(Inscription ins) throws Exception {
 		try {
-			buildPostURL(ws);
-			Log.i("WorkshopController", "Creation success !");
+			buildPostURL(ins);
+			Log.i("InscriptionController", "Creation success !");
 		} catch (Exception e) {
-			Log.i("WorkshopController", "Creation failed !");
+			Log.i("InscriptionController", "Creation failed !");
 			throw e;
 		}
 	}
-	
 
-	public void update(Workshop ws) throws Exception {
+
+	public void update(Inscription ins) throws Exception {
 		try {
-			buildPutURL(ws);
-			Log.i("WorkshopController", "Update success !");
+			buildPutURL(ins);
+			Log.i("InscriptionController", "Update success !");
 		} catch (Exception e) {
-			Log.i("WorkshopController", "Update failed !");
+			Log.i("InscriptionController", "Update failed !");
 			throw e;
 		}
 	}
-	 
+
 	public void delete(Long id)  throws Exception {
 		try {
 			buildDeleteURL(id);
-			Log.i("WorkshopController", "Delete success !");
+			Log.i("InscriptionController", "Delete success !");
 		} catch (Exception e) {
-			Log.i("WorkshopController", "Delete failed !");
+			Log.i("InscriptionController", "Delete failed !");
 			throw e;
 		}
-		
+
 	}
 
 	@SuppressWarnings("rawtypes")
-	public List getAllWorkshops() {
-		InputStream inputStream = getInputStreamFromUrl(EngineConfiguration.path + "rest/workshop");
-		List<Workshop> list = null;
+	public List getAllInscriptions() {
+		InputStream inputStream = getInputStreamFromUrl(EngineConfiguration.path + "rest/inscription");
+		List<Inscription> list = null;
 		try { 
 			String jsonStr = convertInputStreamToString(inputStream);
 			Log.d("Response: ", "> " + jsonStr);
-			list = JSON2Workshop(jsonStr);
+			list = JSON2Inscription(jsonStr);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return list;
 	}
-
-	public Workshop getWorkshops(Long id) {
-		InputStream inputStream = getInputStreamFromUrl(EngineConfiguration.path + "rest/workshop?id="+id);
-		List<Workshop> list = null;
-		try { 
-			String jsonStr = convertInputStreamToString(inputStream);
-			Log.d("Response: ", "> " + jsonStr);
-			list = JSON2Workshop(jsonStr);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return list.get(0);
-	}
 	
-	
-	
-	private List<Workshop> JSON2Workshop(String json) {
+	private List<Inscription> JSON2Inscription(String json) {
 		// TODO Auto-generated method stub
-		List<Workshop> workshops = new ArrayList<Workshop>();
+		List<Inscription> inscriptions = new ArrayList<Inscription>();
 
 		if (json != null) {
 			try {
-				json = "{\""+TAG_WS+"\": "+json+"}";
+				json = "{\""+TAG_INSC+"\": "+json+"}";
 				//JSONObject jsonObj = new JSONObject(json.substring(json.indexOf("{"), json.lastIndexOf("}") + 1));
 				JSONObject jsonObj = new JSONObject(json);
-				JSONArray ws = null;
+				JSONArray ins = null;
 				// Getting JSON Array node
-				ws = jsonObj.getJSONArray(TAG_WS);
+				ins = jsonObj.getJSONArray(TAG_INSC);
 
 				// looping through All Contacts
-				for (int i = 0; i < ws.length(); i++) {
-					JSONObject c = ws.getJSONObject(i);
+				for (int i = 0; i < ins.length(); i++) {
+					JSONObject c = ins.getJSONObject(i);
 
 					String id = c.getString(TAG_ID);
-					String theme = c.getString(TAG_THEME);
-					String hostname = c.getString(TAG_HOSTNAME);
-					String address = c.getString(TAG_ADDRESS);
-					String town = c.getString(TAG_TOWN);
+					String wid = c.getString(TAG_WID);
+					String name = c.getString(TAG_NAME);
+					String email = c.getString(TAG_EMAIL);
+					String phone = c.getString(TAG_PHONE);
+					String part = c.getString(TAG_PART);
+					String expert = c.getString(TAG_EXPERT);
 					String date = c.getString(TAG_DATE);
-					String capacity = c.getString(TAG_CAPACITY);
-					String registered = c.getString(TAG_REGISTERED);
-					String price = c.getString(TAG_PRICE);	
+					String status = c.getString(TAG_STATUS);
 					
 					// tmp hashmap for single contact
 					HashMap<String, String> hash = new HashMap<String, String>();
 
 					// adding each child node to HashMap key => value
 					hash.put(TAG_ID, id);
-					hash.put(TAG_THEME, theme);
-					hash.put(TAG_HOSTNAME, hostname);
-					hash.put(TAG_ADDRESS, address);
-					hash.put(TAG_TOWN, town);
+					hash.put(TAG_WID, wid);
+					hash.put(TAG_NAME, name);
+					hash.put(TAG_EMAIL, email);
+					hash.put(TAG_PHONE, phone);
+					hash.put(TAG_PART, part);
+					hash.put(TAG_EXPERT, expert);
 					hash.put(TAG_DATE, date);
-					hash.put(TAG_REGISTERED, registered);
-					hash.put(TAG_CAPACITY, capacity);
-
-					// adding workshop to contact workshops list
-					Workshop w = new Workshop(theme, address, hostname, town, date, Integer.valueOf(capacity), Integer.valueOf(registered),  Integer.valueOf(price));
-					w.setId(Long.valueOf(id));
-					workshops.add(w);
+					hash.put(TAG_STATUS, status);
+					
+					// adding Inscription to contact Inscriptions list
+					Inscription new_ins = new Inscription(Long.valueOf(wid), name, phone, email, expert, date, Integer.valueOf(part));
+					new_ins.setId(Long.valueOf(id));
+					new_ins.setInscriptionStatus(status);
+					inscriptions.add(new_ins);
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -168,13 +154,13 @@ public class WorkshopController {
 		}
 
 
-		return workshops;
+		return inscriptions;
 	}
 
-	private void buildPostURL(Workshop ws) {
+	private void buildPostURL(Inscription ins) {
 
 		try {
-			URL url = new URL(EngineConfiguration.path + "rest/workshop"); 
+			URL url = new URL(EngineConfiguration.path + "rest/inscription"); 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(10000);
 			conn.setConnectTimeout(15000);
@@ -183,14 +169,14 @@ public class WorkshopController {
 			conn.setDoOutput(true);
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("theme", ws.getTheme()));
-			params.add(new BasicNameValuePair("address", ws.getAddress()));
-			params.add(new BasicNameValuePair("town", ws.getTown()));
-			params.add(new BasicNameValuePair("date", ws.getDate()));
-			params.add(new BasicNameValuePair("hostname", ws.getHostname()));
-			params.add(new BasicNameValuePair("capacity", ""+ws.getCapacity()));
-			params.add(new BasicNameValuePair("registered", ""+ws.getRegistered()));
-			params.add(new BasicNameValuePair("price", ""+ws.getPrice()));
+			params.add(new BasicNameValuePair(TAG_EMAIL, ins.getEmail()));
+			params.add(new BasicNameValuePair(TAG_EXPERT, ins.getExpertise()));
+			params.add(new BasicNameValuePair(TAG_NAME, ins.getName()));
+			params.add(new BasicNameValuePair(TAG_PART, ""+ins.getPartcipants()));
+			params.add(new BasicNameValuePair(TAG_PHONE, ins.getPhoneNumber()));
+			params.add(new BasicNameValuePair(TAG_WID, ins.getWorkshopId().toString()));
+			params.add(new BasicNameValuePair(TAG_DATE, ins.getInscriptionDate()));
+			params.add(new BasicNameValuePair(TAG_STATUS, ins.getInscriptionStatus()));
 			
 			OutputStream os = conn.getOutputStream();
 			BufferedWriter writer = new BufferedWriter(
@@ -216,10 +202,10 @@ public class WorkshopController {
 
 	}
 
-	private void buildPutURL(Workshop ws) {
+	private void buildPutURL(Inscription ins) {
 
 		try {
-			URL url = new URL(EngineConfiguration.path + "rest/workshop"); 
+			URL url = new URL(EngineConfiguration.path + "rest/inscription"); 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(10000);
 			conn.setConnectTimeout(15000);
@@ -228,15 +214,15 @@ public class WorkshopController {
 			conn.setDoOutput(true);
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("id", ""+ws.getId()));
-			params.add(new BasicNameValuePair("theme", ws.getTheme()));
-			params.add(new BasicNameValuePair("address", ws.getAddress()));
-			params.add(new BasicNameValuePair("town", ws.getTown()));
-			params.add(new BasicNameValuePair("date", ws.getDate()));
-			params.add(new BasicNameValuePair("hostname", ws.getHostname()));
-			params.add(new BasicNameValuePair("capacity", ""+ws.getCapacity()));
-			params.add(new BasicNameValuePair("registered", ""+ws.getRegistered()));
-			params.add(new BasicNameValuePair("price", ""+ws.getPrice()));
+			params.add(new BasicNameValuePair("id", ""+ins.getId()));
+			params.add(new BasicNameValuePair(TAG_EMAIL, ins.getEmail()));
+			params.add(new BasicNameValuePair(TAG_EXPERT, ins.getExpertise()));
+			params.add(new BasicNameValuePair(TAG_NAME, ins.getName()));
+			params.add(new BasicNameValuePair(TAG_PART, ""+ins.getPartcipants()));
+			params.add(new BasicNameValuePair(TAG_PHONE, ins.getPhoneNumber()));
+			params.add(new BasicNameValuePair(TAG_WID, ins.getWorkshopId().toString()));
+			params.add(new BasicNameValuePair(TAG_DATE, ins.getInscriptionDate()));
+			params.add(new BasicNameValuePair(TAG_STATUS, ins.getInscriptionStatus()));
 			
 			OutputStream os = conn.getOutputStream();
 			BufferedWriter writer = new BufferedWriter(
@@ -261,11 +247,11 @@ public class WorkshopController {
 		}
 
 	}
-	
+
 	private void buildDeleteURL(Long id) {
 
 		try {
-			URL url = new URL(EngineConfiguration.path + "rest/workshop?id="+id); 
+			URL url = new URL(EngineConfiguration.path + "rest/inscription?id="+id); 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(10000);
 			conn.setConnectTimeout(15000);
@@ -292,7 +278,7 @@ public class WorkshopController {
 		}
 
 	}
-	
+
 	private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
 	{
 		StringBuilder result = new StringBuilder();

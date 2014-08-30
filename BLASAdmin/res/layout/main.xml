@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="startWorkshopAdminActivity"
-        android:text="@string/workshop" />
+        android:text="@string/workshops" />
      
       <Button
         android:id="@+id/projects"

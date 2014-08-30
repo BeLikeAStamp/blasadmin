@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="island_indigo">#18677D</color>
+    <color name="lucky_limeade">#929D37</color>
+    <color name="pool_party">#94CEC1</color>
+    <color name="melon_mambo">#DE3764</color>
+    
+    
+    <color name="baked_brown_sugar">#BD955A</color>
+    <color name="strawberry_slush">#E5405D</color>
+    <color name="coastal_cabana">#93D0C5</color>
+    <color name="crisp_cantaloupe">#F1B8A8</color>
+    <color name="pistachio_pudding">#C8DEB6</color>
+    <color name="basic_black">#503931</color>
+    <color name="basic_gray">#767A79</color>
+    <color name="chocolate_chip">#684947</color>
+    <color name="crumb_cake">#BCAC90</color>
+    <color name="early_espresso">#503931</color>
+    <color name="sahara_sand">#C2BBA9</color>
+    <color name="smoky_slate">#B9B6B9</color>
+    <color name="soft_suede">#756749</color>
+    <color name="very_vanilla">#FFFAE2</color>
+    <color name="whisper_white">#FFFFFF</color>
+    
+    <color name="bermuda_bay">#02B5A0</color>
+    <color name="daffodil_delight">#FFD35C</color>
+    <color name="old_olive">#8A9747</color>
+    <color name="pacific_point">#0130B5</color>
+    <color name="pumpkin_pie">#FF8201</color>
+    <color name="real_red">#C72C39</color>
+    <color name="rich_razzleberry">#954567</color>
+    <color name="tangerine_tango">#F37252</color>
+    <color name="tempting_turquoise">#4BC4D5</color>
+    
+    <color name="rasberry_ripple">#902536</color>
+    <color name="summer_starfruit">#CEA53A</color>
+    <color name="midnight_muse">#2C4359</color>
+    <color name="primrose_petals">#C94A59</color>
+    <color name="gumball_green">#648436</color>
+    
+    <color name="blushing_bride">#F3B6B1</color>
+    <color name="calypso_coral">#F57461</color>
+    <color name="marina_mist">#64A5BB</color>
+    <color name="pear_pizzazz">#ABAD59</color>
+    <color name="pink_pirouette">#FFD8D1</color>
+    <color name="so_saffron">#FDD782</color>
+    <color name="soft_sky">#CEE8E5</color>
+    <color name="wild_wasabi">#8CA65F</color>
+    <color name="wisteria_wonder">#9693B2</color>
+    
+    <color name="always_artichoke">#68724F</color>
+    <color name="cajun_craze">#AA4225</color>
+    <color name="cherry_cobbler">#8C1E2B</color>
+    <color name="crushed_curry">#FEC52D</color>
+    <color name="elegant_eggplant">#604ABE</color>
+    <color name="garden_green">#5F8755</color>
+    <color name="night_of_navy">#21405F</color>
+    <color name="rose_red">#C84B6D</color>
+    <color name="perfect_plum">#856980</color>
+    
+</resources>

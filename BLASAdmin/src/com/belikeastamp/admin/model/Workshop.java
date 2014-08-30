@@ -126,5 +126,11 @@ public class Workshop implements Serializable {
 				+ ", date=" + date + ", capacity=" + capacity + ", registered="
 				+ registered + "]";
 	}
+	
+	public String toStringSexy() {
+		return "theme=" + theme + "\naddress="+ address + "\nhostname=" + hostname + "\ntown=" + town
+				+ "\ndate=" + date + "\ncapacity=" + capacity + "\nregistered="
+				+ registered + "\n";
+	}
 
 }

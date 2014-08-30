@@ -43,6 +43,9 @@
         <activity android:name=".AddProjectActivity" />
         <activity android:name=".GetAllProjectActivity" />
         <activity android:name=".EditProjectActivity" />
+        <activity android:name=".RegistrationAdminActivity" />
+        <activity android:name=".GetAllRegistrationActivity" />
+        <activity android:name=".EditRegistrationActivity" />
     </application>
 
 </manifest>
