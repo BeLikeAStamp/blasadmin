@@ -47,7 +47,7 @@ public class GetAllProjectActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             	RelativeLayout layout = (RelativeLayout)view;
-            	TextView data = (TextView) layout.getChildAt(0);
+            	TextView data = (TextView) layout.getChildAt(1);
             	Project project = (Project) data.getTag();
                 Log.i("GetAllProjectActivity", "Project = "+project);
                 Intent i = new Intent(GetAllProjectActivity.this, EditProjectActivity.class);

@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,8 +48,8 @@ public class GetAllUserActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				RelativeLayout layout = (RelativeLayout)view;
-            	TextView data = (TextView) layout.getChildAt(1);
+				LinearLayout layout = (LinearLayout)view;
+            	TextView data = (TextView) layout.getChildAt(0);
                 Log.i("Get all Users", "ID=" + data.getTag());
                 User w = (User)data.getTag();
                 Intent i = new Intent(GetAllUserActivity.this, EditUserActivity.class);

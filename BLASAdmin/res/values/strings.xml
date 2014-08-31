@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">DWGC ADMIN</string>
+	<string name="app_name">DWBC ADMIN</string>
     <string name="contact_email">andronekomimi@gmail.com</string> <!-- A CHANGER !!! -->
     <string name="project">Projets</string>
     <string name="workshops">Ateliers</string>
@@ -66,10 +66,10 @@
     <string name="btn_send_invit">Inviter</string>
     <string name="btn_send_wk_complet">Complet</string>
     <string name="btn_validate">Valider</string>
-    <string name="email_subject_inscription">[DWGetCrafty] Demande d\'inscription à l\'atelier %1$s</string>
-    <string name="email_body_invit">Bonjour,\n\nMerci pour votre demande d\'inscription. Le déroulement d\'un atelier est le suivant :----------- prix : %1$s ---------------\n\nA bientôt!\nTeam DWGetCrafty</string>
-    <string name="email_body_complet">Bonjour,\n\nMerci pour votre demande d\'inscription. Malheureusement cet atelier est complet. Mais nous tenons compte de votre intérêt. Rien n\'est perdu, on remettra ça.\n----------- a compléter ---------------\n\nA bientôt!\nTeam DWGetCrafty</string>
-    <string name="email_body_validate">Bonjour,\n\nMerci pour votre confirmation d\'inscription. Ce dernier aura lieu le %1$s à %2$s.\n Notre charmante hôtesse, %3$s, nous recevra à l\'adresse suivante : %4$s (%5$s).\n----------- a compléter ---------------\n\nA bientôt!\nTeam DWGetCrafty</string>
+    <string name="email_subject_inscription">[DWBeCrafty] Demande d\'inscription à l\'atelier %1$s</string>
+    <string name="email_body_invit">Bonjour,\n\nMerci pour votre demande d\'inscription. Le déroulement d\'un atelier est le suivant :----------- prix : %1$s ---------------\n\nA bientôt!\nTeam DWBeCrafty</string>
+    <string name="email_body_complet">Bonjour,\n\nMerci pour votre demande d\'inscription. Malheureusement cet atelier est complet. Mais nous tenons compte de votre intérêt. Rien n\'est perdu, on remettra ça.\n----------- a compléter ---------------\n\nA bientôt!\nTeam DWBeCrafty</string>
+    <string name="email_body_validate">Bonjour,\n\nMerci pour votre confirmation d\'inscription. Ce dernier aura lieu le %1$s à %2$s.\n Notre charmante hôtesse, %3$s, nous recevra à l\'adresse suivante : %4$s (%5$s).\n----------- a compléter ---------------\n\nA bientôt!\nTeam DWBeCrafty</string>
     
     <!-- ARRAYS -->
     <string-array name="status_arrays">

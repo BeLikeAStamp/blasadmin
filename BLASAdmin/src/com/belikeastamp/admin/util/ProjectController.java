@@ -67,7 +67,7 @@ public class ProjectController {
 	
 	public void update(Project p, Long id) throws Exception {
 		try {
-			buildPutURL(p, id);
+			buildPutURL(p);
 			Log.i("ProjectController", "Update success !");
 		} catch (Exception e) {
 			Log.i("ProjectController", "Update failed !");
@@ -231,7 +231,7 @@ public class ProjectController {
 
 
 	
-	private void buildPutURL(Project p, Long userId) {
+	private void buildPutURL(Project p) {
 
 		try {
 			URL url = new URL(EngineConfiguration.path + "rest/project"); 
@@ -243,7 +243,7 @@ public class ProjectController {
 			conn.setDoOutput(true);
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("userid", ""+userId));
+			params.add(new BasicNameValuePair("userid", ""+p.getUserId()));
 			params.add(new BasicNameValuePair("id", ""+p.getId()));
 			params.add(new BasicNameValuePair("name", p.getName()));
 			params.add(new BasicNameValuePair("subdate", p.getSubDate()));

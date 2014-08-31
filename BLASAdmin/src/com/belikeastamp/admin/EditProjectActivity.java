@@ -33,6 +33,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,8 +51,19 @@ import android.widget.Toast;
 public class EditProjectActivity extends Activity {
 
 	private static final int PICKFILE_RESULT_CODE = 1;
-	private static final int PROTO_DISPO = 3;
-	private static final int PROJECT_DISPO = 5;
+	
+	public static final int PROJ_WAIT = -1;
+	public static final int PROJ_SUBMIT = 0;
+	public static final int PROJ_ACCEPTED = 1;
+	public static final int PROJ_DISMISSED = 2;
+	public static final int PROTO_INPROGRESS = 3;
+	public static final int PROTO_PENDING = 4;
+	public static final int PROTO_ACCEPTED = 5;
+	public static final int PROTO_DISMISSED = 6;
+	public static final int REAL_INPROGRESS = 7;
+	public static final int REAL_DONE = 8;
+
+		
 	private final static int PROTO = 0;
 	private final static int PROJET = 1;
 	private final static int REAL = 2;
@@ -59,6 +71,7 @@ public class EditProjectActivity extends Activity {
 	private final static int ACCEPT = 0;
 	private final static int INPROGRESS = 1;
 	private final static int DISPO = 2;
+	
 	private final String TAG = "[DWBC]";
 	
 	private TextView name, type, perso, subdate, orderdate, colors ;
@@ -102,6 +115,7 @@ public class EditProjectActivity extends Activity {
 				ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(EditProjectActivity.this,
 						android.R.layout.simple_spinner_item, Arrays.asList(statusList));
 				dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				status.setBackgroundColor(Color.LTGRAY);
 				status.setAdapter(dataAdapter);
 
 				status.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -158,11 +172,17 @@ public class EditProjectActivity extends Activity {
 					}
 
 					if(userPhoneNumer.length() > 0) {
-						if(selected_status == PROTO_DISPO) {
+						Log.d("selected_status", "->"+selected_status);
+						if(selected_status == PROJ_ACCEPTED) {
+							sendSMS(userPhoneNumer, TAG+";"+PROJET+";"+ACCEPT+";"+p.getName());
+						} else if(selected_status == PROTO_INPROGRESS) {
+							sendSMS(userPhoneNumer, TAG+";"+PROTO+";"+INPROGRESS+";"+p.getName());
+						} else if(selected_status == PROTO_PENDING) {
 							sendSMS(userPhoneNumer, TAG+";"+PROTO+";"+DISPO+";"+p.getName());
-						}
-						else if(selected_status == PROJECT_DISPO) {
-							sendSMS(userPhoneNumer, TAG+";"+PROJET+";"+DISPO+";"+p.getName());
+						} else if(selected_status == REAL_INPROGRESS) {
+							sendSMS(userPhoneNumer, TAG+";"+REAL+";"+INPROGRESS+";"+p.getName());
+						} else if(selected_status == REAL_DONE) {
+							sendSMS(userPhoneNumer, TAG+";"+REAL+";"+DISPO+";"+p.getName());
 						}
 					}
 				}
