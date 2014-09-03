@@ -100,7 +100,7 @@ public class InscriptionController {
 	}
 	
 	private List<Inscription> JSON2Inscription(String json) {
-		// TODO Auto-generated method stub
+		
 		List<Inscription> inscriptions = new ArrayList<Inscription>();
 
 		if (json != null) {

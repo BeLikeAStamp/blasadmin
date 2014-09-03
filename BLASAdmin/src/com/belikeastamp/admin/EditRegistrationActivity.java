@@ -60,7 +60,7 @@ public class EditRegistrationActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditRegistrationActivity.this);
 				alertDialogBuilder.setTitle(w.getTheme());
 				alertDialogBuilder
@@ -108,7 +108,7 @@ public class EditRegistrationActivity extends Activity {
 
 					@Override
 					public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-						// TODO Auto-generated method stub
+						
 						final Calendar c = Calendar.getInstance();
 						c.set(Calendar.HOUR_OF_DAY, hourOfDay);
 						c.set(Calendar.MINUTE, minute);
@@ -130,7 +130,7 @@ public class EditRegistrationActivity extends Activity {
 
 
 	private void sendEmail(String message) {
-		// TODO Auto-generated method stub
+		
 		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,  new String[]{ins.getEmail()});
 
@@ -154,7 +154,7 @@ public class EditRegistrationActivity extends Activity {
 
 
 	private void updateWorkshop() {
-		// TODO Auto-generated method stub
+		
 		final Thread update = new Thread() {
 			public void run() {
 				WorkshopController c = new WorkshopController();
@@ -177,7 +177,7 @@ public class EditRegistrationActivity extends Activity {
 
 
 	private void updateInscriptionStatus(final String status) {
-		// TODO Auto-generated method stub
+		
 		final Thread update = new Thread() {
 			public void run() {
 				InscriptionController c = new InscriptionController();

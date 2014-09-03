@@ -19,7 +19,7 @@ public class RegistrationAdminActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Intent i = new Intent(RegistrationAdminActivity.this, GetAllRegistrationActivity.class);
 				startActivity(i);
 			}

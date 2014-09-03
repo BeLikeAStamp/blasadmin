@@ -80,7 +80,7 @@ public class InscriptionAdapter extends ArrayAdapter<Inscription> {
 
 		@Override
 		protected Workshop doInBackground(Long... params) {
-			// TODO Auto-generated method stub
+			
 			Long workshopId = params[0];
 			WorkshopController c = new WorkshopController();
 			Workshop w = c.getWorkshops(workshopId);

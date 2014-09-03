@@ -112,7 +112,7 @@ public class TutorialController {
 	}
 	
 	private List<Tutorial> JSON2Tutorial(String json) {
-		// TODO Auto-generated method stub
+		
 		List<Tutorial> tutorials = new ArrayList<Tutorial>();
 
 		if (json != null) {

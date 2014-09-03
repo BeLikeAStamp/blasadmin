@@ -16,7 +16,7 @@ public class UserAdminActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Intent i = new Intent(UserAdminActivity.this, AddUserActivity.class);
 				startActivity(i);
 			}
@@ -27,7 +27,7 @@ public class UserAdminActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Intent i = new Intent(UserAdminActivity.this, GetAllUserActivity.class);
 				startActivity(i);
 			}

@@ -48,7 +48,7 @@ public class EditWorkshopActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				theme.setEnabled(true);
 				address.setEnabled(true);
 				hostname.setEnabled(true);
@@ -118,7 +118,7 @@ public class EditWorkshopActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Toast.makeText(getApplicationContext(), "Modifications annulées ! ", Toast.LENGTH_SHORT).show();
 
 				theme.setEnabled(false);
@@ -140,7 +140,7 @@ public class EditWorkshopActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditWorkshopActivity.this);
 				alertDialogBuilder.setTitle("Suppression");
 				alertDialogBuilder
@@ -170,7 +170,7 @@ public class EditWorkshopActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Intent i = new Intent(EditWorkshopActivity.this, GetAllWorkshopActivity.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(i);
@@ -180,7 +180,7 @@ public class EditWorkshopActivity extends Activity {
 	}
 
 	private void setWorshopData() {
-		// TODO Auto-generated method stub
+		
 		Log.d("EDIT", "Remplissage ");
 		theme.setText(w.getTheme());
 		address.setText(w.getAddress());
@@ -193,7 +193,7 @@ public class EditWorkshopActivity extends Activity {
 	}
 
 	private void updateWorkshop() {
-		// TODO Auto-generated method stub
+		
 		final Thread update = new Thread() {
 			public void run() {
 				Log.d("EDIT", "MAJ ");
@@ -224,7 +224,7 @@ public class EditWorkshopActivity extends Activity {
 
 
 	private void deleteWorkshop() {
-		// TODO Auto-generated method stub
+		
 		final Thread delete = new Thread() {
 			public void run() {
 				Log.d("EDIT", "Suppression ");

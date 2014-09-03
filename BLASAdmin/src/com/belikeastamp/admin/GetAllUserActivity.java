@@ -55,7 +55,7 @@ public class GetAllUserActivity extends Activity {
                 Intent i = new Intent(GetAllUserActivity.this, EditUserActivity.class);
                 i.putExtra("user", w);
                 startActivity(i);
-				// TODO Auto-generated method stub
+				
 				
 			}
         });

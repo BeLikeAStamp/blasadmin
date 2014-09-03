@@ -121,7 +121,7 @@ public class ProjectController {
 	}
 	
 	private List<Project> JSON2Project(String json) {
-		// TODO Auto-generated method stub
+		
 		List<Project> projects = new ArrayList<Project>();
 
 		if (json != null) {

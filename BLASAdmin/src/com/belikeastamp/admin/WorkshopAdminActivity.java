@@ -17,7 +17,7 @@ public class WorkshopAdminActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Intent i = new Intent(WorkshopAdminActivity.this, AddWorkshopActivity.class);
 				startActivity(i);
 			}
@@ -28,7 +28,7 @@ public class WorkshopAdminActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Intent i = new Intent(WorkshopAdminActivity.this, GetAllWorkshopActivity.class);
 				startActivity(i);
 			}

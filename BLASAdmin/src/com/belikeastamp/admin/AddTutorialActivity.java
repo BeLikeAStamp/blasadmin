@@ -84,7 +84,7 @@ public class AddTutorialActivity extends Activity {
 
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				// TODO Auto-generated method stub
+				
 				if(checkedId == R.id.available) {
 					selectedId = R.id.available;
 				}
@@ -99,7 +99,7 @@ public class AddTutorialActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 				intent.setType("image/jpeg"); 
 				startActivityForResult(intent, PICKFILE_RESULT_CODE);
@@ -111,7 +111,7 @@ public class AddTutorialActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				String msg = checkEntries();
 				if(msg.length() == 0) {
 					//addTutorial();
@@ -233,7 +233,7 @@ public class AddTutorialActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		switch(requestCode){
 		case PICKFILE_RESULT_CODE:
 			if(resultCode==RESULT_OK){
@@ -331,7 +331,7 @@ public class AddTutorialActivity extends Activity {
 
 					@Override
 					public void transferred(long num) {
-						// TODO Auto-generated method stub
+						
 						publishProgress((int) ((num / (float) totalSize) * 100));
 					}
 				});

@@ -111,7 +111,7 @@ public class EditProjectActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(EditProjectActivity.this,
 						android.R.layout.simple_spinner_item, Arrays.asList(statusList));
 				dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -123,14 +123,14 @@ public class EditProjectActivity extends Activity {
 					@Override
 					public void onItemSelected(AdapterView<?> parent,
 							View view, int position, long id) {
-						// TODO Auto-generated method stub
+						
 						updateStatus = true;
 						selected_status = position;
 					}
 
 					@Override
 					public void onNothingSelected(AdapterView<?> parent) {
-						// TODO Auto-generated method stub
+						
 						updateStatus = false;
 
 					}
@@ -199,7 +199,7 @@ public class EditProjectActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Intent i = new Intent(EditProjectActivity.this, GetAllProjectActivity.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(i);
@@ -209,7 +209,7 @@ public class EditProjectActivity extends Activity {
 	}
 
 	private void setData() {
-		// TODO Auto-generated method stub
+		
 		name.setText(getResources().getString(R.string.project_name)+":"+p.getName());
 		type.setText(getResources().getString(R.string.project_type)+":"+p.getType());
 		perso.setText(getResources().getString(R.string.perso)+":"+p.getPrintableDetails());
@@ -270,7 +270,7 @@ public class EditProjectActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		switch(requestCode){
 		case PICKFILE_RESULT_CODE:
 			if(resultCode==RESULT_OK){
@@ -343,7 +343,7 @@ public class EditProjectActivity extends Activity {
 
 					@Override
 					public void transferred(long num) {
-						// TODO Auto-generated method stub
+						
 						publishProgress((int) ((num / (float) totalSize) * 100));
 					}
 				});

@@ -33,7 +33,7 @@ public class AddWorkshopActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				if(theme.getEditableText().length() > 0 
 						&& address.getEditableText().length() > 0 
 						&& hostname.getEditableText().length() > 0

@@ -49,7 +49,7 @@ public class EditUserActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				firstname.setEnabled(true);
 				address.setEnabled(true);
 				name.setEnabled(true);
@@ -68,7 +68,7 @@ public class EditUserActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Toast.makeText(getApplicationContext(), "Modifications annulées ! ", Toast.LENGTH_SHORT).show();
 
 				firstname.setEnabled(false);
@@ -89,7 +89,7 @@ public class EditUserActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditUserActivity.this);
 				alertDialogBuilder.setTitle("Suppression");
 				alertDialogBuilder
@@ -119,7 +119,7 @@ public class EditUserActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				Intent i = new Intent(EditUserActivity.this, GetAllUserActivity.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(i);
@@ -160,7 +160,7 @@ public class EditUserActivity extends Activity {
 	}
 
 	private void setUserData() {
-		// TODO Auto-generated method stub
+		
 		Log.d("EDIT", "Remplissage ");
 		firstname.setText(u.getFirstname());
 		address.setText(u.getAddress());
@@ -191,7 +191,7 @@ public class EditUserActivity extends Activity {
 	}
 
 	private void updateUser() {
-		// TODO Auto-generated method stub
+		
 		final Thread update = new Thread() {
 			public void run() {
 				Log.d("EDIT", "MAJ ");

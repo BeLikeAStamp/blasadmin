@@ -34,7 +34,7 @@ public class AddUserActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				if(firstname.getEditableText().length() > 0
 						&& name.getEditableText().length() > 0
 						&& email.getEditableText().length() > 0

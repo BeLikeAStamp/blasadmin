@@ -116,7 +116,7 @@ public class WorkshopController {
 	
 	
 	private List<Workshop> JSON2Workshop(String json) {
-		// TODO Auto-generated method stub
+		
 		List<Workshop> workshops = new ArrayList<Workshop>();
 
 		if (json != null) {
