@@ -34,7 +34,7 @@
     <!-- ajout dun tuto -->
     <string name="title">Titre</string>
     <string name="upload_date">Date de mise en ligne</string>
-    <string name="availability">Disponobilité</string>
+    <string name="availability">Disponibilité</string>
     <string name="available">disponible</string>
     <string name="not_available">à la demande</string>
     <string name="waiting_file">Fichier en attente</string>
